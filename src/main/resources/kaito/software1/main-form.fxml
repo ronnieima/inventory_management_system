@@ -54,7 +54,7 @@
         <Button layoutX="338.0" layoutY="365.0" mnemonicParsing="false" text="Add" />
         <Button layoutX="385.0" layoutY="365.0" mnemonicParsing="false" text="Modify" />
         <Button layoutX="966.0" layoutY="365.0" mnemonicParsing="false" text="Delete" />
-        <Button layoutX="854.0" layoutY="365.0" mnemonicParsing="false" text="Test" />
+        <Button layoutX="854.0" layoutY="365.0" mnemonicParsing="false" text="Add" />
         <Button layoutX="901.0" layoutY="365.0" mnemonicParsing="false" text="Modify" />
         <Button layoutX="974.0" layoutY="429.0" mnemonicParsing="false" text="Exit" />
     </children>
