@@ -13,11 +13,11 @@ Members of the organization have been using a spreadsheet program to manually en
 <h2>Languages and Utilities Used</h2>
 
 - <b>Java</b> 
-
+- <b>JavaFX</b>
+- 
 <h2>Environments Used </h2>
 
 - <b>IntelliJ</b>
-- <b>JavaFX</b>
 
 <h2>Program walk-through:</h2>
 
