@@ -1,49 +1,53 @@
 package kaito.software1;
 
-public class Product {
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-    private int id;
-    private String name;
-    private int inv;
-    private double price;
+public class  Product {
 
-    public Product(int id, String name, int inv, double price){
-        this.id = id;
-        this.name = name;
-        this.inv = inv;
-        this.price = price;
+    private int productId;
+    private String productName;
+    private int productInv;
+    private double productPrice;
+    public static ObservableList<Product> productList = FXCollections.observableArrayList();
+
+    public Product(int productId, String productName, int productInv, double productPrice){
+        this.productId = productId;
+        this.productName = productName;
+        this.productInv = productInv;
+        this.productPrice = productPrice;
     }
 
-    public int getId() {
-        return id;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public int getInv() {
-        return inv;
+    public int getProductInv() {
+        return productInv;
     }
 
-    public void setInv(int inv) {
-        this.inv = inv;
+    public void setProductInv(int productInv) {
+        this.productInv = productInv;
     }
 
-    public double getPrice() {
-        return price;
+    public double getProductPrice() {
+        return productPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
     }
 }
 

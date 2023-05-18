@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kaito.software1.MainFormController">
     <children>
         <Rectangle arcHeight="50.0" arcWidth="50.0" fill="TRANSPARENT" height="291.0" layoutX="37.0" layoutY="110.0" stroke="BLACK" strokeType="INSIDE" width="478.0" />
       <Rectangle arcHeight="50.0" arcWidth="50.0" fill="TRANSPARENT" height="291.0" layoutX="553.0" layoutY="109.0" stroke="BLACK" strokeType="INSIDE" width="478.0" />
@@ -19,23 +19,23 @@
                 <Font name="Arial Black" size="19.0" />
             </font>
         </Label>
-        <TableView layoutX="51.0" layoutY="152.0" prefHeight="205.0" prefWidth="451.0">
+        <TableView fx:id="partsTable" layoutX="51.0" layoutY="152.0" prefHeight="205.0" prefWidth="451.0">
             <columns>
-                <TableColumn prefWidth="64.0" text="Part ID" />
-                <TableColumn editable="false" prefWidth="138.0" sortable="false" text="Part Name" />
-                <TableColumn editable="false" prefWidth="112.0" sortable="false" text="Inventory Level" />
-                <TableColumn editable="false" prefWidth="136.0" sortable="false" text="Price/ Cost per Unit" />
+                <TableColumn fx:id="partId" prefWidth="64.0" text="Part ID" />
+                <TableColumn fx:id="partName" editable="false" prefWidth="138.0" sortable="false" text="Part Name" />
+                <TableColumn fx:id="partInv" editable="false" prefWidth="112.0" sortable="false" text="Inventory Level" />
+                <TableColumn fx:id="partPrice" editable="false" prefWidth="136.0" sortable="false" text="Price/ Cost per Unit" />
             </columns>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
             </cursor>
         </TableView>
-        <TableView layoutX="566.0" layoutY="152.0" prefHeight="205.0" prefWidth="451.0">
+        <TableView fx:id="productsTable" layoutX="566.0" layoutY="152.0" prefHeight="205.0" prefWidth="451.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="Product ID" />
-                <TableColumn editable="false" prefWidth="150.0" sortable="false" text="Product Name" />
-                <TableColumn editable="false" prefWidth="103.0" sortable="false" text="Inventory Level" />
-                <TableColumn editable="false" prefWidth="122.0" sortable="false" text="Price/ Cost per Unit" />
+                <TableColumn fx:id="productId" prefWidth="75.0" text="Product ID" />
+                <TableColumn fx:id="productName" editable="false" prefWidth="150.0" sortable="false" text="Product Name" />
+                <TableColumn fx:id="productInv" editable="false" prefWidth="103.0" sortable="false" text="Inventory Level" />
+                <TableColumn fx:id="productPrice" editable="false" prefWidth="122.0" sortable="false" text="Price/ Cost per Unit" />
             </columns>
         </TableView>
         <TextField layoutX="836.0" layoutY="127.0" prefHeight="25.0" prefWidth="181.0" promptText="Search by Product ID or Name" />
@@ -54,7 +54,7 @@
         <Button layoutX="338.0" layoutY="365.0" mnemonicParsing="false" text="Add" />
         <Button layoutX="385.0" layoutY="365.0" mnemonicParsing="false" text="Modify" />
         <Button layoutX="966.0" layoutY="365.0" mnemonicParsing="false" text="Delete" />
-        <Button layoutX="854.0" layoutY="365.0" mnemonicParsing="false" text="Add" />
+        <Button layoutX="854.0" layoutY="365.0" mnemonicParsing="false" onAction="#addProduct" text="Add" />
         <Button layoutX="901.0" layoutY="365.0" mnemonicParsing="false" text="Modify" />
         <Button layoutX="974.0" layoutY="429.0" mnemonicParsing="false" text="Exit" />
     </children>

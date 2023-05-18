@@ -1,47 +1,51 @@
 package kaito.software1;
 
-public class Part {
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-    private int id;
-    private String name;
-    private int inv;
-    private double price;
+public abstract class Part {
 
-    public Part(int id, String name, int inv, double price) {
-        this.id = id;
-        this.name = name;
-        this.inv = inv;
-        this.price = price;
+    private int partId;
+    private String partName;
+    private int partInv;
+    private double partPrice;
+    public static ObservableList<Part> partList = FXCollections.observableArrayList();
+
+    public Part(int partId, String partName, int partInv, double partPrice) {
+        this.partId = partId;
+        this.partName = partName;
+        this.partInv = partInv;
+        this.partPrice = partPrice;
     }
 
-    public int getId(){
-        return this.id;
+    public int getPartId(){
+        return this.partId;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
+    public void setPartId(int partId) {
+        this.partId = partId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getPartName() {
+        return partName;
     }
 
-    public int getInv() {
-        return inv;
+    public void setPartName(String partName) {
+        this.partName = partName;
     }
 
-    public void setInv(int inv) {
-        this.inv = inv;
+    public int getPartInv() {
+        return partInv;
     }
 
-    public double getPrice() {
-        return price;
+    public void setPartInv(int partInv) {
+        this.partInv = partInv;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public double getPartPrice() {
+        return partPrice;
+    }
+
+    public void setPartPrice(double partPrice) {
+        this.partPrice = partPrice;
     }
 }

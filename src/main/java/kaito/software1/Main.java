@@ -17,7 +17,21 @@ public class Main extends Application{
         stage.show();
     }
 
-    public static void main(String[] args) {launch();
+    public static void main(String[] args) {
+        Product pr1 = new Product(1, "Deez", 3, 12.23);
+        Product pr2 = new Product(2, "Nuts", 5, 23.23);
+        Product pr3 = new Product(3, "Ball", 7, 1.32);
+        Product pr4 = new Product(4, "Ayo", 9, 123.30);
+        Product pr5 = new Product(5, "LMAO", 0, 12.23);
 
+        Product.productList.add(pr1);
+        Product.productList.add(pr2);
+        Product.productList.add(pr3);
+        Product.productList.add(pr4);
+        Product.productList.add(pr5);
+
+        Part part1 = new InHouse(1, "Wheel", 3, 10.00,111);
+
+        launch();
     }
 }

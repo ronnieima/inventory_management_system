@@ -1,23 +1,40 @@
 package kaito.software1;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainFormController implements Initializable {
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    public TableView<Part> partsTable;
+    public TableView<Product> productsTable;
+    public TableColumn partId;
+    public TableColumn partName;
+    public TableColumn partInv;
+    public TableColumn partPrice;
+    public TableColumn productId;
+    public TableColumn productName;
+    public TableColumn productInv;
+    public TableColumn productPrice;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        productId.setCellValueFactory(new PropertyValueFactory<>("ProductId"));
+        productName.setCellValueFactory(new PropertyValueFactory<>("ProductName"));
+        productInv.setCellValueFactory(new PropertyValueFactory<>("ProductInv"));
+        productPrice.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
+
+        productsTable.setItems(Product.productList);
+    }
+
+    public void addProduct(ActionEvent actionEvent) {
 
     }
 }
