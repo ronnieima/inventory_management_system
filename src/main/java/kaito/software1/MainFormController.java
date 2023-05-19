@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -47,19 +49,16 @@ public class MainFormController implements Initializable {
         partsTable.setItems(Part.partList);
     }
 
-    public void addProduct(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("add-product-form.fxml"));
+    public void addPart(ActionEvent actionEvent) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("add-part-form.fxml"));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void deletePart(ActionEvent actionEvent) throws IOException {
-    }
-
-    public void addPart(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("add-part-form.fxml"));
+    public void addProduct(ActionEvent actionEvent) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("add-product-form.fxml"));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -82,7 +81,38 @@ public class MainFormController implements Initializable {
         stage.show();
     }
 
+    public void deletePart(ActionEvent actionEvent) throws IOException {
+        Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
+
+        // Creates an alert confirmation whenever user wants to delete a part
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Deletion Confirmation");
+        alert.setHeaderText("Deletion Confirmation");
+        alert.setContentText("Are you sure you want to delete " + selectedPart.getPartName() + "?");
+
+        if (alert.showAndWait().get() == ButtonType.OK){
+            partsTable.getItems().remove(selectedPart);
+        }
+    }
+
+    public void deleteProduct(ActionEvent actionEvent) {
+        Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
+
+        // Creates an alert confirmation whenever user wants to delete a product
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Deletion Confirmation");
+        alert.setHeaderText("Deletion Confirmation");
+        alert.setContentText("Are you sure you want to delete " + selectedProduct.getProductName() + "?");
+
+        // TODO: Throw an error whenever user tries to delete a product with a part attached to it
+        if (alert.showAndWait().get() == ButtonType.OK){
+            productsTable.getItems().remove(selectedProduct);
+        }
+    }
+
     public void exit() {
+        System.out.println("Successfully logged out!");
         Platform.exit();
     }
+
 }
