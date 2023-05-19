@@ -84,29 +84,30 @@ public class MainFormController implements Initializable {
     public void deletePart(ActionEvent actionEvent) throws IOException {
         Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
 
-        // Creates an alert confirmation whenever user wants to delete a part
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Deletion Confirmation");
-        alert.setHeaderText("Deletion Confirmation");
-        alert.setContentText("Are you sure you want to delete " + selectedPart.getPartName() + "?");
-
-        if (alert.showAndWait().get() == ButtonType.OK){
-            partsTable.getItems().remove(selectedPart);
+        if (selectedPart != null) {
+            // Creates an alert confirmation whenever user wants to delete a part
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Deletion Confirmation");
+            alert.setHeaderText("Deletion Confirmation");
+            alert.setContentText("Are you sure you want to delete " + selectedPart.getPartName() + "?");
+            if (alert.showAndWait().get() == ButtonType.OK){
+                partsTable.getItems().remove(selectedPart);
+            }
         }
     }
 
     public void deleteProduct(ActionEvent actionEvent) {
         Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
 
-        // Creates an alert confirmation whenever user wants to delete a product
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Deletion Confirmation");
-        alert.setHeaderText("Deletion Confirmation");
-        alert.setContentText("Are you sure you want to delete " + selectedProduct.getProductName() + "?");
-
-        // TODO: Throw an error whenever user tries to delete a product with a part attached to it
-        if (alert.showAndWait().get() == ButtonType.OK){
-            productsTable.getItems().remove(selectedProduct);
+        if (selectedProduct != null) {
+            // Creates an alert confirmation whenever user wants to delete a product
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Deletion Confirmation");
+            alert.setHeaderText("Deletion Confirmation");
+            alert.setContentText("Are you sure you want to delete " + selectedProduct.getProductName() + "?");
+            if (alert.showAndWait().get() == ButtonType.OK){
+                productsTable.getItems().remove(selectedProduct);
+            }
         }
     }
 
