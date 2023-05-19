@@ -1,7 +1,6 @@
 package kaito.software1;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -13,14 +12,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static kaito.software1.Part.partList;
 
 public class MainFormController implements Initializable {
     @FXML
@@ -48,37 +43,55 @@ public class MainFormController implements Initializable {
         productName.setCellValueFactory(new PropertyValueFactory<>("ProductName"));
         productInv.setCellValueFactory(new PropertyValueFactory<>("ProductInv"));
         productPrice.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
-        productsTable.setItems(Product.productList);
+        productsTable.setItems(Main.productList);
 
-        partId.setCellValueFactory(new PropertyValueFactory<>("PartId"));
-        partName.setCellValueFactory(new PropertyValueFactory<>("PartName"));
-        partInv.setCellValueFactory(new PropertyValueFactory<>("PartInv"));
-        partPrice.setCellValueFactory(new PropertyValueFactory<>("PartPrice"));
-        partsTable.setItems(partList);
+        partId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        partsTable.setItems(Main.partList);
 
-        FilteredList<Part> filteredParts = new FilteredList<>(partList, p -> true);
+        FilteredList<Part> filteredParts = new FilteredList<>(Main.partList, p -> true);
         searchPart.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                
                 String lowerCaseFilter = newValue.toLowerCase();
-
-                if (Integer.toString(part.getPartId()).toLowerCase().contains(lowerCaseFilter)) {
+                // Searches the's part ID by turning it into a string and comparing it with the existing parts in the
+                // list
+                if (Integer.toString(part.getId()).toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (part.getPartName().toLowerCase().contains(lowerCaseFilter)) {
+                } else if (part.getName().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
                 return false;
             });
         });
-
         SortedList<Part> sortedParts = new SortedList<>(filteredParts);
-
         sortedParts.comparatorProperty().bind(partsTable.comparatorProperty());
-
         partsTable.setItems(sortedParts);
+
+        FilteredList<Product> filteredProducts = new FilteredList<>(Main.productList, p -> true);
+        searchProduct.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            filteredProducts.setPredicate(part -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                // Searches the's part ID by turning it into a string and comparing it with the existing parts in the
+                // list
+                if (Integer.toString(part.getProductId()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (part.getProductName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        SortedList<Product> sortedProducts = new SortedList<>(filteredProducts);
+        sortedProducts.comparatorProperty().bind(productsTable.comparatorProperty());
+        productsTable.setItems(sortedProducts);
 
     }
 
@@ -123,9 +136,9 @@ public class MainFormController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Deletion Confirmation");
             alert.setHeaderText("Deletion Confirmation");
-            alert.setContentText("Are you sure you want to delete " + selectedPart.getPartName() + "?");
+            alert.setContentText("Are you sure you want to delete " + selectedPart.getName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
-                partsTable.getItems().remove(selectedPart);
+                Main.partList.remove(selectedPart);
             }
         }
     }
@@ -140,7 +153,7 @@ public class MainFormController implements Initializable {
             alert.setHeaderText("Deletion Confirmation");
             alert.setContentText("Are you sure you want to delete " + selectedProduct.getProductName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
-                productsTable.getItems().remove(selectedProduct);
+                Main.productList.remove(selectedProduct);
             }
         }
     }

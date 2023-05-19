@@ -1,51 +1,109 @@
-package kaito.software1;
+package kaito.software1; /**
+ * Supplied class Part.java
+ */
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
+/**
+ *
+ * @author Place Your Name Here
+ */
 public abstract class Part {
-
-    private int partId;
-    private String partName;
-    private int partInv;
-    private double partPrice;
-    public static ObservableList<Part> partList = FXCollections.observableArrayList();
-
-    public Part(int partId, String partName, int partInv, double partPrice) {
-        this.partId = partId;
-        this.partName = partName;
-        this.partInv = partInv;
-        this.partPrice = partPrice;
+    private int id;
+    private String name;
+    private double price;
+    private int stock;
+    private int min;
+    private int max;
+    public Part(int id, String name, double price, int stock, int min, int max) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.min = min;
+        this.max = max;
     }
 
-    public int getPartId(){
-        return this.partId;
-    }
-    public void setPartId(int partId) {
-        this.partId = partId;
-    }
-
-    public String getPartName() {
-        return partName;
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
     }
 
-    public void setPartName(String partName) {
-        this.partName = partName;
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getPartInv() {
-        return partInv;
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
     }
 
-    public void setPartInv(int partInv) {
-        this.partInv = partInv;
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double getPartPrice() {
-        return partPrice;
+    /**
+     * @return the price
+     */
+    public double getPrice() {
+        return price;
     }
 
-    public void setPartPrice(double partPrice) {
-        this.partPrice = partPrice;
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(double price) {
+        this.price = price;
     }
+
+    /**
+     * @return the stock
+     */
+    public int getStock() {
+        return stock;
+    }
+
+    /**
+     * @param stock the stock to set
+     */
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    /**
+     * @return the min
+     */
+    public int getMin() {
+        return min;
+    }
+
+    /**
+     * @param min the min to set
+     */
+    public void setMin(int min) {
+        this.min = min;
+    }
+
+    /**
+     * @return the max
+     */
+    public int getMax() {
+        return max;
+    }
+
+    /**
+     * @param max the max to set
+     */
+    public void setMax(int max) {
+        this.max = max;
+    }
+
 }

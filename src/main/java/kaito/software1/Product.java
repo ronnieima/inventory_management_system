@@ -9,7 +9,7 @@ public class  Product {
     private String productName;
     private int productInv;
     private double productPrice;
-    public static ObservableList<Product> productList = FXCollections.observableArrayList();
+
 
     public Product(int productId, String productName, int productInv, double productPrice){
         this.productId = productId;
