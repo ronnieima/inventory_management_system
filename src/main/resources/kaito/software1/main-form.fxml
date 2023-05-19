@@ -38,8 +38,8 @@
                 <TableColumn fx:id="productPrice" editable="false" prefWidth="122.0" sortable="false" text="Price/ Cost per Unit" />
             </columns>
         </TableView>
-        <TextField layoutX="836.0" layoutY="127.0" prefHeight="25.0" prefWidth="181.0" promptText="Search by Product ID or Name" />
-        <TextField layoutX="321.0" layoutY="127.0" prefHeight="25.0" prefWidth="181.0" promptText="Search by Part ID or Name" />
+        <TextField fx:id="searchProduct" layoutX="836.0" layoutY="127.0" prefHeight="25.0" prefWidth="181.0" promptText="Search by Product ID or Name" />
+        <TextField fx:id="searchPart" layoutX="321.0" layoutY="127.0" prefHeight="25.0" prefWidth="181.0" promptText="Search by Part ID or Name" />
         <Label layoutX="51.0" layoutY="123.0" prefHeight="34.0" prefWidth="67.0" text="Parts">
             <font>
                 <Font name="Arial Black" size="15.0" />
