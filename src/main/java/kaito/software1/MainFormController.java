@@ -157,7 +157,7 @@ public class MainFormController implements Initializable {
             }
         }
     }
-
+    //test
     public void exit() {
         System.out.println("Successfully logged out!");
         Platform.exit();
