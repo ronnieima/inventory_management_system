@@ -18,19 +18,29 @@ public class Main extends Application{
     }
 
     public static void main(String[] args) {
-        Product pr1 = new Product(1, "Deez", 3, 12.23);
-        Product pr2 = new Product(2, "Nuts", 5, 23.23);
-        Product pr3 = new Product(3, "Ball", 7, 1.32);
-        Product pr4 = new Product(4, "Ayo", 9, 123.30);
-        Product pr5 = new Product(5, "LMAO", 0, 12.23);
+        Product product1 = new Product(1, "Mountain Bike", 10, 499.99);
+        Product product2 = new Product(2, "Road Bike", 5, 799.99);
+        Product product3 = new Product(3, "Hybrid Bike", 20, 349.99);
+        Product product4 = new Product(4, "Electric Bike", 15, 1299.99);
+        Product product5 = new Product(5, "Kids Bike", 8, 199.99);
 
-        Product.productList.add(pr1);
-        Product.productList.add(pr2);
-        Product.productList.add(pr3);
-        Product.productList.add(pr4);
-        Product.productList.add(pr5);
+        Product.productList.add(product1);
+        Product.productList.add(product2);
+        Product.productList.add(product3);
+        Product.productList.add(product4);
+        Product.productList.add(product5);
 
-        Part part1 = new InHouse(1, "Wheel", 3, 10.00,111);
+        Part handlebar = new InHouse(1, "Handlebar", 10, 39.99, 2322);
+        Part pedal = new Outsourced(2, "Pedal", 5, 19.99, "Pedalz");
+        Part tire = new Outsourced(3, "Tire", 20, 29.99, "KaitoCorp");
+        Part saddle = new InHouse(4, "Saddle", 15, 49.99, 42);
+        Part chain = new InHouse(5, "Chain", 8, 14.99, 1234);
+
+        Part.partList.add(handlebar);
+        Part.partList.add(pedal);
+        Part.partList.add(tire);
+        Part.partList.add(saddle);
+        Part.partList.add(chain);
 
         launch();
     }

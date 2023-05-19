@@ -30,8 +30,13 @@ public class MainFormController implements Initializable {
         productName.setCellValueFactory(new PropertyValueFactory<>("ProductName"));
         productInv.setCellValueFactory(new PropertyValueFactory<>("ProductInv"));
         productPrice.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
-
         productsTable.setItems(Product.productList);
+
+        partId.setCellValueFactory(new PropertyValueFactory<>("PartId"));
+        partName.setCellValueFactory(new PropertyValueFactory<>("PartName"));
+        partInv.setCellValueFactory(new PropertyValueFactory<>("PartInv"));
+        partPrice.setCellValueFactory(new PropertyValueFactory<>("PartPrice"));
+        partsTable.setItems(Part.partList);
     }
 
     public void addProduct(ActionEvent actionEvent) {
