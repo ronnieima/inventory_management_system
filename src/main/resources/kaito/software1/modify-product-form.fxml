@@ -28,7 +28,7 @@
         </TableView>
         <Button layoutX="934.0" layoutY="338.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Add" />
         <Button layoutX="885.0" layoutY="610.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Remove Associated Part" />
-        <Button layoutX="934.0" layoutY="642.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Cancel" />
+        <Button layoutX="934.0" layoutY="642.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="100.0" text="Cancel" />
         <Button layoutX="825.0" layoutY="642.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Save" />
         <Label layoutX="93.0" layoutY="159.0" prefHeight="32.0" prefWidth="72.0" text="ID">
             <font>

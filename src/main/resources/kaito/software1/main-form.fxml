@@ -50,12 +50,12 @@
                 <Font name="Arial Black" size="15.0" />
             </font>
         </Label>
-        <Button layoutX="450.0" layoutY="365.0" mnemonicParsing="false" text="Delete" />
-        <Button layoutX="338.0" layoutY="365.0" mnemonicParsing="false" text="Add" />
-        <Button layoutX="385.0" layoutY="365.0" mnemonicParsing="false" text="Modify" />
+        <Button layoutX="450.0" layoutY="365.0" mnemonicParsing="false" onAction="#deletePart" text="Delete" />
+        <Button layoutX="338.0" layoutY="365.0" mnemonicParsing="false" onAction="#addPart" text="Add" />
+        <Button layoutX="385.0" layoutY="365.0" mnemonicParsing="false" onAction="#modifyPart" text="Modify" />
         <Button layoutX="966.0" layoutY="365.0" mnemonicParsing="false" text="Delete" />
         <Button layoutX="854.0" layoutY="365.0" mnemonicParsing="false" onAction="#addProduct" text="Add" />
-        <Button layoutX="901.0" layoutY="365.0" mnemonicParsing="false" text="Modify" />
-        <Button layoutX="974.0" layoutY="429.0" mnemonicParsing="false" text="Exit" />
+        <Button layoutX="901.0" layoutY="365.0" mnemonicParsing="false" onAction="#modifyProduct" text="Modify" />
+        <Button layoutX="974.0" layoutY="429.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
     </children>
 </AnchorPane>
