@@ -95,37 +95,28 @@ public class MainFormController implements Initializable {
 
     }
 
-
-    public void addPart(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("add-part-form.fxml"));
+    private void switchScene(String fxmlFile, ActionEvent actionEvent) throws IOException {
+        root = FXMLLoader.load(getClass().getResource(fxmlFile));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void addPart(ActionEvent actionEvent) throws IOException {
+        switchScene("add-part-form.fxml", actionEvent);
     }
 
     public void addProduct(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("add-product-form.fxml"));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        switchScene("add-product-form.fxml", actionEvent);
     }
 
     public void modifyPart(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("modify-part-form.fxml"));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        switchScene("modify-part-form.fxml", actionEvent);
     }
 
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("modify-product-form.fxml"));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        switchScene("modify-product-form.fxml", actionEvent);
     }
 
     public void deletePart(ActionEvent actionEvent) throws IOException {
