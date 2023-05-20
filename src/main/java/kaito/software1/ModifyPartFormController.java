@@ -80,7 +80,6 @@ public class ModifyPartFormController implements Initializable {
             outsourcedButton.setSelected(true);
             changingText.setText(((Outsourced)part).getCompanyName());
         }
-
     }
     public void switchToInHouse(ActionEvent actionEvent) {
         changingLabel.setText("Machine ID");
@@ -110,7 +109,7 @@ public class ModifyPartFormController implements Initializable {
                     try {
                         machineId = Integer.parseInt(changingText.getText());
                         InHouse modifiedPart = new InHouse(id, name, price,stock, max, min, machineId);
-                        Main.partList.add(modifiedPart);
+                        Inventory.partList.add(modifiedPart);
                         partAdded = true;
                     } catch (Exception e) {
                         popupError(2);
@@ -119,11 +118,11 @@ public class ModifyPartFormController implements Initializable {
                 } else {
                     companyName = changingText.getText();
                     Outsourced modifiedPart = new Outsourced(id, name, price,stock, max, min, companyName);
-                    Main.partList.add(modifiedPart);
+                    Inventory.partList.add(modifiedPart);
                     partAdded = true;
                 }
                 if (partAdded) {
-                    Main.partList.remove(part);
+                    Inventory.partList.remove(part);
                     returnToMain(actionEvent);
                 }
             }
@@ -132,6 +131,4 @@ public class ModifyPartFormController implements Initializable {
         }
 
     }
-
-
 }

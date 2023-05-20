@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -62,14 +61,14 @@ public class AddPartFormController implements Initializable {
     // TODO: Add input validation
     public void saveData(ActionEvent actionEvent) throws IOException {
         if (inhouseButton.isSelected()) {
-            Part part = new InHouse(Main.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), Integer.parseInt(changingText.getText()));
-            Main.partList.add(part);
-            Main.partIdCounter++;
+            Part part = new InHouse(Inventory.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), Integer.parseInt(changingText.getText()));
+            Inventory.partList.add(part);
+            Inventory.partIdCounter++;
         }
         else {
-            Part part = new Outsourced(Main.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), changingText.getText());
-            Main.partList.add(part);
-            Main.partIdCounter++;
+            Part part = new Outsourced(Inventory.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), changingText.getText());
+            Inventory.partList.add(part);
+            Inventory.partIdCounter++;
         }
         returnToMain(actionEvent);
     }

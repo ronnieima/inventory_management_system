@@ -1,7 +1,6 @@
 package kaito.software1;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -44,15 +43,15 @@ public class MainFormController implements Initializable {
         productName.setCellValueFactory(new PropertyValueFactory<>("ProductName"));
         productInv.setCellValueFactory(new PropertyValueFactory<>("ProductInv"));
         productPrice.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
-        productsTable.setItems(Main.productList);
+        productsTable.setItems(Inventory.productList);
 
         partId.setCellValueFactory(new PropertyValueFactory<>("id"));
         partName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        partsTable.setItems(Main.partList);
+        partsTable.setItems(Inventory.partList);
 
-        FilteredList<Part> filteredParts = new FilteredList<>(Main.partList, p -> true);
+        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.partList, p -> true);
         searchPart.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -73,7 +72,7 @@ public class MainFormController implements Initializable {
         sortedParts.comparatorProperty().bind(partsTable.comparatorProperty());
         partsTable.setItems(sortedParts);
 
-        FilteredList<Product> filteredProducts = new FilteredList<>(Main.productList, p -> true);
+        FilteredList<Product> filteredProducts = new FilteredList<>(Inventory.productList, p -> true);
         searchProduct.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredProducts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -135,12 +134,24 @@ public class MainFormController implements Initializable {
         catch(NullPointerException e) {
             popupNoSelectionError();
         }
-
-
     }
 
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
-        switchScene("modify-product-form.fxml", actionEvent);
+        try {
+            Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-product-form.fxml"));
+            root = loader.load();
+            ModifyProductFormController controller = loader.getController();
+            controller.getProduct(selectedProduct);
+            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch(NullPointerException e) {
+            popupNoSelectionError();
+        }
     }
 
     public void deletePart(ActionEvent actionEvent) throws IOException {
@@ -153,7 +164,7 @@ public class MainFormController implements Initializable {
             alert.setHeaderText("Deletion Confirmation");
             alert.setContentText("Are you sure you want to delete " + selectedPart.getName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
-                Main.partList.remove(selectedPart);
+                Inventory.partList.remove(selectedPart);
             }
         }
         catch (NullPointerException e) {
@@ -172,7 +183,7 @@ public class MainFormController implements Initializable {
             alert.setHeaderText("Deletion Confirmation");
             alert.setContentText("Are you sure you want to delete " + selectedProduct.getProductName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
-                Main.productList.remove(selectedProduct);
+                Inventory.productList.remove(selectedProduct);
             }
         }
         catch (NullPointerException e) {

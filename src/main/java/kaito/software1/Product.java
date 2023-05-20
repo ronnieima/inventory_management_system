@@ -81,5 +81,13 @@ public class  Product {
     public void setMin(int min) {
         this.min = min;
     }
+
+    public ObservableList<Part> getAssociatedParts() {
+        return associatedParts;
+    }
+
+    public void setAssociatedParts(ObservableList<Part> associatedParts) {
+        this.associatedParts = associatedParts;
+    }
 }
 

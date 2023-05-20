@@ -5,9 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -49,7 +47,7 @@ public class AddProductFormController implements Initializable {
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        availablePartsTable.setItems(Main.partList);
+        availablePartsTable.setItems(Inventory.partList);
 
         assoPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         assoPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -58,7 +56,7 @@ public class AddProductFormController implements Initializable {
         associatedTable.setItems(associatedPartsList);
 
         // Search
-        FilteredList<Part> filteredParts = new FilteredList<>(Main.partList, p -> true);
+        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.partList, p -> true);
         searchPart.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -78,9 +76,6 @@ public class AddProductFormController implements Initializable {
         SortedList<Part> sortedParts = new SortedList<>(filteredParts);
         sortedParts.comparatorProperty().bind(availablePartsTable.comparatorProperty());
         availablePartsTable.setItems(sortedParts);
-
-
-
     }
 
     public void cancel(ActionEvent actionEvent) throws IOException {
@@ -99,7 +94,7 @@ public class AddProductFormController implements Initializable {
     }
 
     public void pressSaveButton(ActionEvent actionEvent) throws IOException {
-        int id = Main.productIdCounter;
+        int id = Inventory.productIdCounter;
         String name = nameText.getText();
         int stock = Integer.parseInt(stockText.getText());
         double price = Double.parseDouble(priceText.getText());
@@ -107,8 +102,8 @@ public class AddProductFormController implements Initializable {
         int min = Integer.parseInt(minText.getText());
 
         newProduct = new Product(id, name, stock, price, max, min);
-        Main.productList.add(newProduct);
-        Main.productIdCounter++;
+        Inventory.productList.add(newProduct);
+        Inventory.productIdCounter++;
         AddPartFormController.returnToMain(actionEvent);
     }
 }
