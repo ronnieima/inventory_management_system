@@ -1,6 +1,7 @@
 package kaito.software1;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -104,7 +105,10 @@ public class MainFormController implements Initializable {
     }
 
     public void addPart(ActionEvent actionEvent) throws IOException {
+        Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
+        ModifyPartFormController controller = new ModifyPartFormController();
         switchScene("add-part-form.fxml", actionEvent);
+        controller.getPart(selectedPart);
     }
 
     public void addProduct(ActionEvent actionEvent) throws IOException {
