@@ -12,6 +12,8 @@ import java.io.IOException;
 public class Main extends Application{
     public static ObservableList<Part> partList = FXCollections.observableArrayList();
     public static ObservableList<Product> productList = FXCollections.observableArrayList();
+    public static int partIdCounter = 1;
+    public static int productIdCounter = 1;
 
     @Override
     public void start(Stage stage) throws IOException {

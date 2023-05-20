@@ -28,7 +28,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="idText" editable="false" layoutX="201.0" layoutY="158.0" promptText="Auto Gen- Disabled" />
+      <TextField fx:id="idText" disable="true" editable="false" layoutX="201.0" layoutY="158.0" promptText="Auto Gen- Disabled" />
       <TextField fx:id="nameText" layoutX="201.0" layoutY="209.0" />
       <TextField fx:id="stockText" layoutX="201.0" layoutY="262.0" />
       <TextField fx:id="priceText" layoutX="201.0" layoutY="319.0" />
