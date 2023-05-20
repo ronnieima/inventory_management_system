@@ -40,7 +40,7 @@ public class ModifyProductFormController implements Initializable {
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        availablePartsTable.setItems(Inventory.partList);
+        availablePartsTable.setItems(Inventory.getAllParts());
 
         assoPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         assoPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -49,7 +49,7 @@ public class ModifyProductFormController implements Initializable {
         associatedTable.setItems(associatedPartsList);
 
         // Search
-        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.partList, p -> true);
+        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.getAllParts(), p -> true);
         searchPart.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -73,8 +73,8 @@ public class ModifyProductFormController implements Initializable {
 
     public void addAssociatedPart(ActionEvent actionEvent) {
         Part selectedPart = availablePartsTable.getSelectionModel().getSelectedItem();
-        product.getAssociatedParts().add(selectedPart);
-        associatedTable.setItems(product.getAssociatedParts());
+        product.getAllAssociatedParts().add(selectedPart);
+        associatedTable.setItems(product.getAllAssociatedParts());
     }
 
     public void removeAssociatedPart(ActionEvent actionEvent) {
@@ -85,13 +85,13 @@ public class ModifyProductFormController implements Initializable {
         alert.setContentText("Are you sure you want to disassociate this part?");
         if (associatedTable.getSelectionModel().isEmpty() == false) {
             if (alert.showAndWait().get() == ButtonType.OK) {
-                product.getAssociatedParts().remove(selectedPart);
+                product.getAllAssociatedParts().remove(selectedPart);
             }
         }
     }
 
     public void cancel(ActionEvent actionEvent) throws IOException {
-        AddPartFormController.returnToMain(actionEvent);
+        Inventory.returnToMain(actionEvent);
     }
 
     public void pressSaveButton(ActionEvent actionEvent) {
@@ -111,9 +111,9 @@ public class ModifyProductFormController implements Initializable {
                     for (Part p : associatedPartsList) {
                         modifiedProduct.addAssociatedPart(p);
                     }
-                    Inventory.productList.add(modifiedProduct);
-                    Inventory.productList.remove(product);
-                    AddPartFormController.returnToMain(actionEvent);
+                    Inventory.getAllProducts().add(modifiedProduct);
+                    Inventory.getAllProducts().remove(product);
+                    Inventory.returnToMain(actionEvent);
                 }
             }
         } catch (Exception e) {
@@ -164,12 +164,12 @@ public class ModifyProductFormController implements Initializable {
 
     public void getProduct(Product product) {
         this.product = product;
-        idText.setText(String.valueOf(product.getProductId()));
-        nameText.setText(product.getProductName());
-        stockText.setText(String.valueOf(product.getProductInv()));
-        priceText.setText(String.valueOf(product.getProductPrice()));
+        idText.setText(String.valueOf(product.getId()));
+        nameText.setText(product.getName());
+        stockText.setText(String.valueOf(product.getStock()));
+        priceText.setText(String.valueOf(product.getPrice()));
         maxText.setText(String.valueOf(product.getMax()));
         minText.setText(String.valueOf(product.getMin()));
-        associatedTable.setItems(product.getAssociatedParts());
+        associatedTable.setItems(product.getAllAssociatedParts());
     }
 }

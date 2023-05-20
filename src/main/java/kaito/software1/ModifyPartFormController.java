@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static kaito.software1.AddPartFormController.returnToMain;
+import static kaito.software1.Inventory.returnToMain;
 
 public class ModifyPartFormController implements Initializable {
 
@@ -89,7 +89,7 @@ public class ModifyPartFormController implements Initializable {
     }
 
     public void cancel(ActionEvent actionEvent) throws IOException {
-        AddPartFormController.returnToMain(actionEvent);
+        Inventory.returnToMain(actionEvent);
     }
 
     public void saveModify(ActionEvent actionEvent) throws IOException {
@@ -109,7 +109,7 @@ public class ModifyPartFormController implements Initializable {
                     try {
                         machineId = Integer.parseInt(changingText.getText());
                         InHouse modifiedPart = new InHouse(id, name, price,stock, max, min, machineId);
-                        Inventory.partList.add(modifiedPart);
+                        Inventory.getAllParts().add(modifiedPart);
                         partAdded = true;
                     } catch (Exception e) {
                         popupError(2);
@@ -118,11 +118,11 @@ public class ModifyPartFormController implements Initializable {
                 } else {
                     companyName = changingText.getText();
                     Outsourced modifiedPart = new Outsourced(id, name, price,stock, max, min, companyName);
-                    Inventory.partList.add(modifiedPart);
+                    Inventory.getAllParts().add(modifiedPart);
                     partAdded = true;
                 }
                 if (partAdded) {
-                    Inventory.partList.remove(part);
+                    Inventory.getAllParts().remove(part);
                     returnToMain(actionEvent);
                 }
             }

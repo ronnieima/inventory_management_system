@@ -47,7 +47,7 @@ public class AddProductFormController implements Initializable {
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        availablePartsTable.setItems(Inventory.partList);
+        availablePartsTable.setItems(Inventory.getAllParts());
 
         assoPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         assoPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -56,7 +56,7 @@ public class AddProductFormController implements Initializable {
         associatedTable.setItems(associatedPartsList);
 
         // Search
-        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.partList, p -> true);
+        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.getAllParts(), p -> true);
         searchPart.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -79,7 +79,7 @@ public class AddProductFormController implements Initializable {
     }
 
     public void cancel(ActionEvent actionEvent) throws IOException {
-        AddPartFormController.returnToMain(actionEvent);
+        Inventory.returnToMain(actionEvent);
     }
 
     public void addAssociatedPart(ActionEvent actionEvent) throws IOException {
@@ -102,8 +102,8 @@ public class AddProductFormController implements Initializable {
         int min = Integer.parseInt(minText.getText());
 
         newProduct = new Product(id, name, stock, price, max, min);
-        Inventory.productList.add(newProduct);
+        Inventory.getAllProducts().add(newProduct);
         Inventory.productIdCounter++;
-        AddPartFormController.returnToMain(actionEvent);
+        Inventory.returnToMain(actionEvent);
     }
 }

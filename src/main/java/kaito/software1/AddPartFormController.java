@@ -1,9 +1,7 @@
 package kaito.software1;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -48,7 +46,7 @@ public class AddPartFormController implements Initializable {
 
 
     public void cancel(ActionEvent actionEvent) throws IOException {
-        returnToMain(actionEvent);
+        Inventory.returnToMain(actionEvent);
     }
 
     public void switchToInHouse(ActionEvent actionEvent) {
@@ -62,22 +60,15 @@ public class AddPartFormController implements Initializable {
     public void saveData(ActionEvent actionEvent) throws IOException {
         if (inhouseButton.isSelected()) {
             Part part = new InHouse(Inventory.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), Integer.parseInt(changingText.getText()));
-            Inventory.partList.add(part);
+            Inventory.getAllParts().add(part);
             Inventory.partIdCounter++;
         }
         else {
             Part part = new Outsourced(Inventory.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), changingText.getText());
-            Inventory.partList.add(part);
+            Inventory.getAllParts().add(part);
             Inventory.partIdCounter++;
         }
-        returnToMain(actionEvent);
+        Inventory.returnToMain(actionEvent);
     }
 
-    public static void returnToMain(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(AddPartFormController.class.getResource("main-form.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 }
