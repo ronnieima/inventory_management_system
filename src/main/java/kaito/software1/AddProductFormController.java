@@ -102,8 +102,7 @@ public class AddProductFormController implements Initializable {
         int min = Integer.parseInt(minText.getText());
 
         newProduct = new Product(id, name, stock, price, max, min);
-        Inventory.getAllProducts().add(newProduct);
-        Inventory.productIdCounter++;
+        Inventory.addProduct(newProduct);
         Inventory.returnToMain(actionEvent);
     }
 }

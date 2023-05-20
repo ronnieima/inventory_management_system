@@ -21,6 +21,7 @@ public class  Product {
         this.stock = stock;
         this.max = max;
         this.min = min;
+        Inventory.productIdCounter++;
     }
 
     public void setName(String name) {

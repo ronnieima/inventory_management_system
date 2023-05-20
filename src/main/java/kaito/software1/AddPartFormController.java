@@ -58,17 +58,63 @@ public class AddPartFormController implements Initializable {
 
     // TODO: Add input validation
     public void saveData(ActionEvent actionEvent) throws IOException {
-        if (inhouseButton.isSelected()) {
-            Part part = new InHouse(Inventory.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), Integer.parseInt(changingText.getText()));
-            Inventory.getAllParts().add(part);
-            Inventory.partIdCounter++;
+
+
+        try {
+            int id = Inventory.partIdCounter;
+            String name = nameText.getText();
+            double price = Double.parseDouble(priceText.getText());
+            int stock = Integer.parseInt(stockText.getText());
+            int min = Integer.parseInt(minText.getText());
+            int max = Integer.parseInt(maxText.getText());
+            int machineId;
+            String companyName;
+            
+            if (inhouseButton.isSelected()) {
+                try {
+                    machineId = Integer.parseInt(changingText.getText());
+                    Part part = new InHouse(id, name, price, stock, min, max, machineId);
+                    Inventory.addPart(part);
+                    Inventory.partIdCounter++;
+                    Inventory.returnToMain(actionEvent);
+                } catch (Exception e) {
+                    popupError(2);
+                }
+
+            }
+            else {
+                companyName = changingText.getText();
+                Part part = new Outsourced(id, name, price, stock, min ,max, companyName);
+                Inventory.addPart(part);
+                Inventory.partIdCounter++;
+                Inventory.returnToMain(actionEvent);
+            }
+        } catch (Exception e) {
+            popupError(1);
         }
-        else {
-            Part part = new Outsourced(Inventory.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), changingText.getText());
-            Inventory.getAllParts().add(part);
-            Inventory.partIdCounter++;
+    }
+    private void createError(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    private void popupError(int alert) {
+        switch (alert) {
+            case 1:
+                createError("Error modifying part", "Form contains blank values or invalid characters.");
+                break;
+            case 2:
+                createError("Error modifying machine ID", "Machine ID must be an integer.");
+                break;
+            case 3:
+                createError("Error modifying part", "Min can not be greater than max or be less than 0.");
+                break;
+            case 4:
+                createError("Error modifying part", "Inventory has to be between min and max.");
+                break;
         }
-        Inventory.returnToMain(actionEvent);
     }
 
 }

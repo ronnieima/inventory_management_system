@@ -39,10 +39,10 @@ public class MainFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        productId.setCellValueFactory(new PropertyValueFactory<>("ProductId"));
-        productName.setCellValueFactory(new PropertyValueFactory<>("ProductName"));
-        productInv.setCellValueFactory(new PropertyValueFactory<>("ProductInv"));
-        productPrice.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
+        productId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         productsTable.setItems(Inventory.getAllProducts());
 
         partId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -164,7 +164,7 @@ public class MainFormController implements Initializable {
             alert.setHeaderText("Deletion Confirmation");
             alert.setContentText("Are you sure you want to delete " + selectedPart.getName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
-                Inventory.getAllParts().remove(selectedPart);
+                Inventory.deletePart(selectedPart);
             }
         }
         catch (NullPointerException e) {
@@ -183,7 +183,7 @@ public class MainFormController implements Initializable {
             alert.setHeaderText("Deletion Confirmation");
             alert.setContentText("Are you sure you want to delete " + selectedProduct.getName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
-                Inventory.getAllProducts().remove(selectedProduct);
+                Inventory.deleteProduct(selectedProduct);
             }
         }
         catch (NullPointerException e) {
@@ -192,7 +192,6 @@ public class MainFormController implements Initializable {
     }
 
     public void exit() {
-        System.out.println("Successfully logged out!");
         Platform.exit();
     }
 

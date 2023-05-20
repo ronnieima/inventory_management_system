@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static kaito.software1.Inventory.returnToMain;
-
 public class ModifyPartFormController implements Initializable {
 
     @FXML
@@ -46,17 +44,30 @@ public class ModifyPartFormController implements Initializable {
         switch (alert) {
             case 1:
                 createError("Error modifying part", "Form contains blank values or invalid characters.");
+                break;
             case 2:
                 createError("Error modifying machine ID", "Machine ID must be an integer.");
+                break;
             case 3:
                 createError("Error modifying part", "Min can not be greater than max or be less than 0.");
-                //TODO add stock error
+                break;
+            case 4:
+                createError("Error modifying part", "Inventory has to be between min and max.");
+                break;
         }
     }
 
     private boolean checkMinMax(int min, int max) {
         if(max <= min || min < 0) {
             popupError(3);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkStock(int stock, int min, int max) {
+        if (stock < min || stock > max) {
+            popupError(4);
             return false;
         }
         return true;
@@ -72,12 +83,12 @@ public class ModifyPartFormController implements Initializable {
         minText.setText(String.valueOf(part.getMin()));
 
         if (part instanceof InHouse) {
-            changingLabel.setText("Machine ID");
             inhouseButton.setSelected(true);
+            changingLabel.setText("Machine ID");
             changingText.setText(String.valueOf(((InHouse)part).getMachineId()));
         } else {
-            changingLabel.setText("Company Name");
             outsourcedButton.setSelected(true);
+            changingLabel.setText("Company Name");
             changingText.setText(((Outsourced)part).getCompanyName());
         }
     }
@@ -102,28 +113,22 @@ public class ModifyPartFormController implements Initializable {
             int min = (Integer.parseInt(minText.getText()));
             int machineId;
             String companyName;
-            boolean partAdded = false;
 
-            if (checkMinMax(min, max)) {
+            if (checkMinMax(min, max) && checkStock(stock, min, max)) {
                 if (inhouseButton.isSelected()) {
                     try {
                         machineId = Integer.parseInt(changingText.getText());
-                        InHouse modifiedPart = new InHouse(id, name, price,stock, max, min, machineId);
-                        Inventory.getAllParts().add(modifiedPart);
-                        partAdded = true;
+                        InHouse modifiedPart = new InHouse(id, name, price,stock, min, max, machineId);
+                        Inventory.updatePart(Inventory.getAllParts().indexOf(part), modifiedPart);
+                        Inventory.returnToMain(actionEvent);
                     } catch (Exception e) {
                         popupError(2);
                     }
-
                 } else {
                     companyName = changingText.getText();
-                    Outsourced modifiedPart = new Outsourced(id, name, price,stock, max, min, companyName);
-                    Inventory.getAllParts().add(modifiedPart);
-                    partAdded = true;
-                }
-                if (partAdded) {
-                    Inventory.getAllParts().remove(part);
-                    returnToMain(actionEvent);
+                    Outsourced modifiedPart = new Outsourced(id, name, price,stock, min, max, companyName);
+                    Inventory.updatePart(Inventory.getAllParts().indexOf(part), modifiedPart);
+                    Inventory.returnToMain(actionEvent);
                 }
             }
         } catch (Exception e) {

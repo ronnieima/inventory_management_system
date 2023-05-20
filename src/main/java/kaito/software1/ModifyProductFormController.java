@@ -73,7 +73,7 @@ public class ModifyProductFormController implements Initializable {
 
     public void addAssociatedPart(ActionEvent actionEvent) {
         Part selectedPart = availablePartsTable.getSelectionModel().getSelectedItem();
-        product.getAllAssociatedParts().add(selectedPart);
+        product.addAssociatedPart(selectedPart);
         associatedTable.setItems(product.getAllAssociatedParts());
     }
 
@@ -85,7 +85,7 @@ public class ModifyProductFormController implements Initializable {
         alert.setContentText("Are you sure you want to disassociate this part?");
         if (associatedTable.getSelectionModel().isEmpty() == false) {
             if (alert.showAndWait().get() == ButtonType.OK) {
-                product.getAllAssociatedParts().remove(selectedPart);
+                product.deleteAssociatedPart(selectedPart);
             }
         }
     }
@@ -111,8 +111,7 @@ public class ModifyProductFormController implements Initializable {
                     for (Part p : associatedPartsList) {
                         modifiedProduct.addAssociatedPart(p);
                     }
-                    Inventory.getAllProducts().add(modifiedProduct);
-                    Inventory.getAllProducts().remove(product);
+                    Inventory.updateProduct(Inventory.getAllProducts().indexOf(product), modifiedProduct);
                     Inventory.returnToMain(actionEvent);
                 }
             }
