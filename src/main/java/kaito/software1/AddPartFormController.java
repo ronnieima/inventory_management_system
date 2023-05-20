@@ -59,14 +59,19 @@ public class AddPartFormController implements Initializable {
         changingLabel.setText("Company Name");
     }
 
-    // TODO: Add OUTSOURCED OPTION
+    // TODO: Add input validation
     public void saveData(ActionEvent actionEvent) throws IOException {
         if (inhouseButton.isSelected()) {
             Part part = new InHouse(Main.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), Integer.parseInt(changingText.getText()));
             Main.partList.add(part);
             Main.partIdCounter++;
-            returnToMain(actionEvent);
         }
+        else {
+            Part part = new Outsourced(Main.partIdCounter, nameText.getText(), Double.parseDouble(priceText.getText()), Integer.parseInt(stockText.getText()), Integer.parseInt(minText.getText()), Integer.parseInt(maxText.getText()), changingText.getText());
+            Main.partList.add(part);
+            Main.partIdCounter++;
+        }
+        returnToMain(actionEvent);
     }
 
     public static void returnToMain(ActionEvent actionEvent) throws IOException {

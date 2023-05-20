@@ -55,7 +55,7 @@ public class ModifyPartFormController implements Initializable {
     }
 
     private boolean checkMinMax(int min, int max) {
-        if(max >= max || min < 0) {
+        if(max <= min || min < 0) {
             popupError(3);
             return false;
         }
@@ -94,37 +94,38 @@ public class ModifyPartFormController implements Initializable {
     }
 
     public void saveModify(ActionEvent actionEvent) throws IOException {
-        int id = Integer.parseInt(idText.getText());
-        String name = nameText.getText();
-        double price = Double.parseDouble(priceText.getText());
-        int stock = (Integer.parseInt(stockText.getText()));
-        int max = (Integer.parseInt(maxText.getText()));
-        int min = (Integer.parseInt(minText.getText()));
-        int machineId;
-        String companyName;
-        boolean partAdded = false;
-
         try {
-            if (inhouseButton.isSelected()) {
-                try {
-                    machineId = Integer.parseInt(changingText.getText());
-                    checkMinMax(min, max);
-                    InHouse modifiedPart = new InHouse(id, name, price,stock, max, min, machineId);
+            int id = Integer.parseInt(idText.getText());
+            String name = nameText.getText();
+            double price = Double.parseDouble(priceText.getText());
+            int stock = (Integer.parseInt(stockText.getText()));
+            int max = (Integer.parseInt(maxText.getText()));
+            int min = (Integer.parseInt(minText.getText()));
+            int machineId;
+            String companyName;
+            boolean partAdded = false;
+
+            if (checkMinMax(min, max)) {
+                if (inhouseButton.isSelected()) {
+                    try {
+                        machineId = Integer.parseInt(changingText.getText());
+                        InHouse modifiedPart = new InHouse(id, name, price,stock, max, min, machineId);
+                        Main.partList.add(modifiedPart);
+                        partAdded = true;
+                    } catch (Exception e) {
+                        popupError(2);
+                    }
+
+                } else {
+                    companyName = changingText.getText();
+                    Outsourced modifiedPart = new Outsourced(id, name, price,stock, max, min, companyName);
                     Main.partList.add(modifiedPart);
                     partAdded = true;
-                } catch (Exception e) {
-                    popupError(2);
                 }
-
-            } else {
-                companyName = changingText.getText();
-                Outsourced modifiedPart = new Outsourced(id, name, price,stock, max, min, companyName);
-                Main.partList.add(modifiedPart);
-                partAdded = true;
-            }
-            if (partAdded) {
-                Main.partList.remove(part);
-                returnToMain(actionEvent);
+                if (partAdded) {
+                    Main.partList.remove(part);
+                    returnToMain(actionEvent);
+                }
             }
         } catch (Exception e) {
             popupError(1);
