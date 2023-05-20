@@ -21,7 +21,7 @@
         </Label>
         <TableView fx:id="partsTable" layoutX="51.0" layoutY="152.0" prefHeight="205.0" prefWidth="451.0">
             <columns>
-                <TableColumn fx:id="partId" prefWidth="64.0" text="Part ID" />
+                <TableColumn fx:id="partId" editable="false" prefWidth="64.0" text="Part ID" />
                 <TableColumn fx:id="partName" editable="false" prefWidth="138.0" sortable="false" text="Part Name" />
                 <TableColumn fx:id="partInv" editable="false" prefWidth="112.0" sortable="false" text="Inventory Level" />
                 <TableColumn fx:id="partPrice" editable="false" prefWidth="136.0" sortable="false" text="Price/ Cost per Unit" />

@@ -35,33 +35,53 @@ public class ModifyPartFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
+    private void createError(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    private void popupError(int alert) {
+        switch (alert) {
+            case 1:
+                createError("Error modifying part", "Form contains blank values or invalid characters.");
+            case 2:
+                createError("Error modifying machine ID", "Machine ID must be an integer.");
+            case 3:
+                createError("Error modifying part", "Min can not be greater than max or be less than 0.");
+                //TODO add stock error
+        }
+    }
+
+    private boolean checkMinMax(int min, int max) {
+        if(max >= max || min < 0) {
+            popupError(3);
+            return false;
+        }
+        return true;
+    }
+
     public void getPart(Part part) {
         this.part = part;
-        if (part.getClass().getSimpleName().equals("InHouse")) {
+        idText.setText(String.valueOf(part.getId()));
+        nameText.setText(part.getName());
+        stockText.setText(String.valueOf(part.getStock()));
+        priceText.setText(String.valueOf(part.getPrice()));
+        maxText.setText(String.valueOf(part.getMax()));
+        minText.setText(String.valueOf(part.getMin()));
+
+        if (part instanceof InHouse) {
+            changingLabel.setText("Machine ID");
             inhouseButton.setSelected(true);
-            InHouse inHouse = (InHouse) part;
-            idText.setText(String.valueOf(inHouse.getId()));
-            nameText.setText(inHouse.getName());
-            stockText.setText(String.valueOf(inHouse.getStock()));
-            priceText.setText(String.valueOf(inHouse.getPrice()));
-            maxText.setText(String.valueOf(inHouse.getMax()));
-            minText.setText(String.valueOf(inHouse.getMin()));
-            changingText.setText(String.valueOf((inHouse.getMachineId())));
+            changingText.setText(String.valueOf(((InHouse)part).getMachineId()));
         } else {
+            changingLabel.setText("Company Name");
             outsourcedButton.setSelected(true);
-            Outsourced outsourced = (Outsourced) part;
-            idText.setText(String.valueOf(outsourced.getId()));
-            nameText.setText(outsourced.getName());
-            stockText.setText(String.valueOf(outsourced.getStock()));
-            priceText.setText(String.valueOf(outsourced.getPrice()));
-            maxText.setText(String.valueOf(outsourced.getMax()));
-            minText.setText(String.valueOf(outsourced.getMin()));
-            changingText.setText(String.valueOf((outsourced.getCompanyName())));
+            changingText.setText(((Outsourced)part).getCompanyName());
         }
 
     }
-
-
     public void switchToInHouse(ActionEvent actionEvent) {
         changingLabel.setText("Machine ID");
     }
@@ -74,16 +94,43 @@ public class ModifyPartFormController implements Initializable {
     }
 
     public void saveModify(ActionEvent actionEvent) throws IOException {
-        if (inhouseButton.isSelected()) {
-            InHouse modifiedPart = (InHouse) part;
-            modifiedPart.setId(Integer.parseInt(idText.getText()));
-            modifiedPart.setName(nameText.getText());
-            modifiedPart.setPrice(Double.parseDouble(priceText.getText()));
-            modifiedPart.setMax(Integer.parseInt(maxText.getText()));
-            modifiedPart.setMin(Integer.parseInt(minText.getText()));
-            modifiedPart.setMachineId(Integer.parseInt(changingText.getText()));
+        int id = Integer.parseInt(idText.getText());
+        String name = nameText.getText();
+        double price = Double.parseDouble(priceText.getText());
+        int stock = (Integer.parseInt(stockText.getText()));
+        int max = (Integer.parseInt(maxText.getText()));
+        int min = (Integer.parseInt(minText.getText()));
+        int machineId;
+        String companyName;
+        boolean partAdded = false;
+
+        try {
+            if (inhouseButton.isSelected()) {
+                try {
+                    machineId = Integer.parseInt(changingText.getText());
+                    checkMinMax(min, max);
+                    InHouse modifiedPart = new InHouse(id, name, price,stock, max, min, machineId);
+                    Main.partList.add(modifiedPart);
+                    partAdded = true;
+                } catch (Exception e) {
+                    popupError(2);
+                }
+
+            } else {
+                companyName = changingText.getText();
+                Outsourced modifiedPart = new Outsourced(id, name, price,stock, max, min, companyName);
+                Main.partList.add(modifiedPart);
+                partAdded = true;
+            }
+            if (partAdded) {
+                Main.partList.remove(part);
+                returnToMain(actionEvent);
+            }
+        } catch (Exception e) {
+            popupError(1);
         }
 
-        returnToMain(actionEvent);
     }
+
+
 }
