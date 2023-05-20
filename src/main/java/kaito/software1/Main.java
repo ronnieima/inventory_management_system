@@ -25,11 +25,11 @@ public class Main extends Application{
     }
 
     public static void main(String[] args) {
-        Product product1 = new Product(1, "Mountain Bike", 10, 499.99);
-        Product product2 = new Product(2, "Road Bike", 5, 799.99);
-        Product product3 = new Product(3, "Hybrid Bike", 20, 349.99);
-        Product product4 = new Product(4, "Electric Bike", 15, 1299.99);
-        Product product5 = new Product(5, "Kids Bike", 8, 199.99);
+        Product product1 = new Product(1, "Mountain Bike", 10, 499.99, 3, 2);
+        Product product2 = new Product(2, "Road Bike", 5, 799.99, 6, 2);
+        Product product3 = new Product(3, "Hybrid Bike", 20, 349.99, 100, 4);
+        Product product4 = new Product(4, "Electric Bike", 15, 1299.99, 3, 1);
+        Product product5 = new Product(5, "Kids Bike", 8, 199.99, 4, 1);
 
         Main.productList.add(product1);
         Main.productList.add(product2);

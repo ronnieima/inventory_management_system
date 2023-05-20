@@ -9,13 +9,29 @@ public class  Product {
     private String productName;
     private int productInv;
     private double productPrice;
+    private int max;
+    private int min;
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
-
-    public Product(int productId, String productName, int productInv, double productPrice){
+    public Product(int productId, String productName, int productInv, double productPrice, int max, int min){
         this.productId = productId;
         this.productName = productName;
         this.productInv = productInv;
         this.productPrice = productPrice;
+        this.max = max;
+        this.min = min;
+    }
+
+    public void addAssociatedPart(Part part) {
+        associatedParts.add(part);
+    }
+
+    public boolean removeAssociatedPart(Part part) {
+        if (associatedParts.contains(associatedParts)) {
+            associatedParts.remove(part);
+            return true;
+        }
+        return false;
     }
 
     public int getProductId() {
@@ -48,6 +64,22 @@ public class  Product {
 
     public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min) {
+        this.min = min;
     }
 }
 
