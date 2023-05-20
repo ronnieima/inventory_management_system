@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,10 +16,8 @@ import java.io.IOException;
 public class Inventory extends Application{
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
-    public static int partIdCounter = 1;
-    public static int productIdCounter = 1;
-
-
+    private static int partIdCounter = 1;
+    private static int productIdCounter = 1;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -135,11 +134,68 @@ public class Inventory extends Application{
         return allProducts;
     }
 
+    public static int getPartIdCounter() {
+        return partIdCounter;
+    }
+
+    public static void setPartIdCounter(int partIdCounter) {
+        Inventory.partIdCounter = partIdCounter;
+    }
+
+    public static int getProductIdCounter() {
+        return productIdCounter;
+    }
+
+    public static void setProductIdCounter(int productIdCounter) {
+        Inventory.productIdCounter = productIdCounter;
+    }
+
     public static void returnToMain(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Inventory.class.getResource("main-form.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private static void createError(String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    static void popupError(int alert) {
+        switch (alert) {
+            case 1:
+                createError("Form contains blank values or invalid characters.");
+                break;
+            case 2:
+                createError("Machine ID must be an integer.");
+                break;
+            case 3:
+                createError("Min can not be greater than max or be less than 0.");
+                break;
+            case 4:
+                createError("Inventory has to be between min and max.");
+                break;
+        }
+    }
+
+    static boolean checkMinMax(int min, int max) {
+        if(max <= min || min < 0) {
+            popupError(3);
+            return false;
+        }
+        return true;
+    }
+
+    static boolean checkStock(int stock, int min, int max) {
+        if (stock < min || stock > max) {
+            popupError(4);
+            return false;
+        }
+        return true;
     }
 }

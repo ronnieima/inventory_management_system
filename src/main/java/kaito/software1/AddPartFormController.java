@@ -56,12 +56,10 @@ public class AddPartFormController implements Initializable {
         changingLabel.setText("Company Name");
     }
 
-    // TODO: Add input validation
+
     public void saveData(ActionEvent actionEvent) throws IOException {
-
-
         try {
-            int id = Inventory.partIdCounter;
+            int id = Inventory.getPartIdCounter();
             String name = nameText.getText();
             double price = Double.parseDouble(priceText.getText());
             int stock = Integer.parseInt(stockText.getText());
@@ -69,52 +67,30 @@ public class AddPartFormController implements Initializable {
             int max = Integer.parseInt(maxText.getText());
             int machineId;
             String companyName;
-            
-            if (inhouseButton.isSelected()) {
-                try {
-                    machineId = Integer.parseInt(changingText.getText());
-                    Part part = new InHouse(id, name, price, stock, min, max, machineId);
-                    Inventory.addPart(part);
-                    Inventory.partIdCounter++;
-                    Inventory.returnToMain(actionEvent);
-                } catch (Exception e) {
-                    popupError(2);
-                }
+            if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max)) {
+                if (inhouseButton.isSelected()) {
+                    try {
+                        machineId = Integer.parseInt(changingText.getText());
+                        Part part = new InHouse(id, name, price, stock, min, max, machineId);
+                        Inventory.addPart(part);
+                        Inventory.setPartIdCounter(Inventory.getPartIdCounter() + 1);
+                        Inventory.returnToMain(actionEvent);
+                    } catch (Exception e) {
+                        Inventory.popupError(2);
+                    }
 
-            }
-            else {
-                companyName = changingText.getText();
-                Part part = new Outsourced(id, name, price, stock, min ,max, companyName);
-                Inventory.addPart(part);
-                Inventory.partIdCounter++;
-                Inventory.returnToMain(actionEvent);
+                } else {
+                    companyName = changingText.getText();
+                    Part part = new Outsourced(id, name, price, stock, min, max, companyName);
+                    Inventory.addPart(part);
+                    Inventory.setPartIdCounter(Inventory.getPartIdCounter() + 1);
+                    Inventory.returnToMain(actionEvent);
+                }
             }
         } catch (Exception e) {
-            popupError(1);
+            Inventory.popupError(1);
         }
     }
-    private void createError(String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-    private void popupError(int alert) {
-        switch (alert) {
-            case 1:
-                createError("Error modifying part", "Form contains blank values or invalid characters.");
-                break;
-            case 2:
-                createError("Error modifying machine ID", "Machine ID must be an integer.");
-                break;
-            case 3:
-                createError("Error modifying part", "Min can not be greater than max or be less than 0.");
-                break;
-            case 4:
-                createError("Error modifying part", "Inventory has to be between min and max.");
-                break;
-        }
-    }
+
 
 }

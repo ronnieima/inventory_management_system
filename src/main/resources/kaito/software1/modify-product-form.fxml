@@ -50,7 +50,7 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label layoutX="93.0" layoutY="389.0" prefHeight="32.0" prefWidth="72.0" text="Max">
+        <Label layoutX="93.0" layoutY="389.0" prefHeight="32.0" prefWidth="64.0" text="Max">
             <font>
                 <Font size="18.0" />
             </font>
@@ -60,7 +60,7 @@
         <TextField fx:id="nameText" layoutX="165.0" layoutY="220.0" prefHeight="25.0" prefWidth="195.0" />
         <TextField fx:id="priceText" layoutX="165.0" layoutY="335.0" />
         <TextField fx:id="maxText" layoutX="165.0" layoutY="393.0" />
-        <Label layoutX="343.0" layoutY="389.0" prefHeight="32.0" prefWidth="72.0" text="Min">
+        <Label layoutX="343.0" layoutY="389.0" prefHeight="32.0" prefWidth="37.0" text="Min">
             <font>
                 <Font size="18.0" />
             </font>

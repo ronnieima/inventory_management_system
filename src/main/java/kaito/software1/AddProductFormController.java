@@ -8,9 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -90,19 +88,33 @@ public class AddProductFormController implements Initializable {
 
     public void removeAssociatedPart(ActionEvent actionEvent) {
         Part selectedPart = associatedTable.getSelectionModel().getSelectedItem();
-        associatedPartsList.remove(selectedPart);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Disassociate Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to disassociate this part?");
+        if (associatedTable.getSelectionModel().isEmpty() == false) {
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                associatedPartsList.remove(selectedPart);
+            }
+        }
     }
 
     public void pressSaveButton(ActionEvent actionEvent) throws IOException {
-        int id = Inventory.productIdCounter;
-        String name = nameText.getText();
-        int stock = Integer.parseInt(stockText.getText());
-        double price = Double.parseDouble(priceText.getText());
-        int max = Integer.parseInt(maxText.getText());
-        int min = Integer.parseInt(minText.getText());
+        try{
+            int id = Inventory.getProductIdCounter();
+            String name = nameText.getText();
+            int stock = Integer.parseInt(stockText.getText());
+            double price = Double.parseDouble(priceText.getText());
+            int max = Integer.parseInt(maxText.getText());
+            int min = Integer.parseInt(minText.getText());
 
-        newProduct = new Product(id, name, stock, price, max, min);
-        Inventory.addProduct(newProduct);
-        Inventory.returnToMain(actionEvent);
+            if (Inventory.checkStock(stock, min, max) && Inventory.checkMinMax(min, max)) {
+                newProduct = new Product(id, name, stock, price, max, min);
+                Inventory.addProduct(newProduct);
+                Inventory.returnToMain(actionEvent);
+            }
+        } catch (Exception e) {
+            Inventory.popupError(1);
+        }
     }
 }

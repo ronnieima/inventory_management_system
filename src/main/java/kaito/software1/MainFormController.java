@@ -97,7 +97,8 @@ public class MainFormController implements Initializable {
 
     private void popupNoSelectionError() {
         Alert error = new Alert(Alert.AlertType.ERROR);
-        error.setTitle("Nothing selected");
+        error.setTitle("Nothing Selected");
+        error.setHeaderText(null);
         error.setContentText("You have not selected anything.");
         error.showAndWait();
     }
@@ -131,7 +132,7 @@ public class MainFormController implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
-        catch(NullPointerException e) {
+        catch(Exception e) {
             popupNoSelectionError();
         }
     }
@@ -149,7 +150,7 @@ public class MainFormController implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
-        catch(NullPointerException e) {
+        catch(Exception e) {
             popupNoSelectionError();
         }
     }
@@ -161,7 +162,7 @@ public class MainFormController implements Initializable {
             // Creates an alert confirmation whenever user wants to delete a part
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Deletion Confirmation");
-            alert.setHeaderText("Deletion Confirmation");
+            alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to delete " + selectedPart.getName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
                 Inventory.deletePart(selectedPart);
@@ -175,12 +176,10 @@ public class MainFormController implements Initializable {
     public void deleteProduct(ActionEvent actionEvent) {
         try {
             Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
-
-
             // Creates an alert confirmation whenever user wants to delete a product
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Deletion Confirmation");
-            alert.setHeaderText("Deletion Confirmation");
+            alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to delete " + selectedProduct.getName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
                 Inventory.deleteProduct(selectedProduct);
@@ -192,7 +191,12 @@ public class MainFormController implements Initializable {
     }
 
     public void exit() {
-        Platform.exit();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to exit?");
+        if(alert.showAndWait().get() == ButtonType.OK) {
+            Platform.exit();
+        }
     }
-
 }

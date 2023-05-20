@@ -33,46 +33,6 @@ public class ModifyPartFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
-    private void createError(String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-    private void popupError(int alert) {
-        switch (alert) {
-            case 1:
-                createError("Error modifying part", "Form contains blank values or invalid characters.");
-                break;
-            case 2:
-                createError("Error modifying machine ID", "Machine ID must be an integer.");
-                break;
-            case 3:
-                createError("Error modifying part", "Min can not be greater than max or be less than 0.");
-                break;
-            case 4:
-                createError("Error modifying part", "Inventory has to be between min and max.");
-                break;
-        }
-    }
-
-    private boolean checkMinMax(int min, int max) {
-        if(max <= min || min < 0) {
-            popupError(3);
-            return false;
-        }
-        return true;
-    }
-
-    private boolean checkStock(int stock, int min, int max) {
-        if (stock < min || stock > max) {
-            popupError(4);
-            return false;
-        }
-        return true;
-    }
-
     public void getPart(Part part) {
         this.part = part;
         idText.setText(String.valueOf(part.getId()));
@@ -114,7 +74,7 @@ public class ModifyPartFormController implements Initializable {
             int machineId;
             String companyName;
 
-            if (checkMinMax(min, max) && checkStock(stock, min, max)) {
+            if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max)) {
                 if (inhouseButton.isSelected()) {
                     try {
                         machineId = Integer.parseInt(changingText.getText());
@@ -122,7 +82,7 @@ public class ModifyPartFormController implements Initializable {
                         Inventory.updatePart(Inventory.getAllParts().indexOf(part), modifiedPart);
                         Inventory.returnToMain(actionEvent);
                     } catch (Exception e) {
-                        popupError(2);
+                        Inventory.popupError(2);
                     }
                 } else {
                     companyName = changingText.getText();
@@ -132,7 +92,7 @@ public class ModifyPartFormController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            popupError(1);
+            Inventory.popupError(1);
         }
 
     }

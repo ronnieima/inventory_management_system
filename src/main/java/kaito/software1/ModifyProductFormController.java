@@ -73,8 +73,8 @@ public class ModifyProductFormController implements Initializable {
 
     public void addAssociatedPart(ActionEvent actionEvent) {
         Part selectedPart = availablePartsTable.getSelectionModel().getSelectedItem();
-        product.addAssociatedPart(selectedPart);
-        associatedTable.setItems(product.getAllAssociatedParts());
+        associatedPartsList.add(selectedPart);
+        associatedTable.setItems(associatedPartsList);
     }
 
     public void removeAssociatedPart(ActionEvent actionEvent) {
@@ -85,7 +85,7 @@ public class ModifyProductFormController implements Initializable {
         alert.setContentText("Are you sure you want to disassociate this part?");
         if (associatedTable.getSelectionModel().isEmpty() == false) {
             if (alert.showAndWait().get() == ButtonType.OK) {
-                product.deleteAssociatedPart(selectedPart);
+                associatedPartsList.remove(selectedPart);
             }
         }
     }
@@ -104,9 +104,9 @@ public class ModifyProductFormController implements Initializable {
             int min = Integer.parseInt(minText.getText());
 
             if (name.isEmpty()) {
-                popupError(4);
+                Inventory.popupError(4);
             } else {
-                if (checkMinMax(min, max) && checkStock(stock, min, max)) {
+                if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max)) {
                     Product modifiedProduct = new Product(id, name, stock, price, max, min);
                     for (Part p : associatedPartsList) {
                         modifiedProduct.addAssociatedPart(p);
@@ -116,49 +116,9 @@ public class ModifyProductFormController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            popupError(1);
+            Inventory.popupError(1);
         }
 
-    }
-    //TODO weird bug when this gets called when inv is deleted and save
-    private boolean checkMinMax(int min, int max) {
-        if(max <= min || min < 0) {
-            popupError(2);
-            return false;
-        }
-        return true;
-    }
-
-    private boolean checkStock(int stock, int min, int max) {
-        if (stock < min || stock > max) {
-            popupError(3);
-            return false;
-        }
-        return true;
-    }
-
-    private void createError(String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-    private void popupError(int alert) {
-        switch (alert) {
-            case 1:
-                createError("Error modifying part", "Text fields contain blank values or invalid characters.");
-                break;
-            case 2:
-                createError("Error modifying part", "Min can not be greater than or equal to max or be less than 0.");
-                break;
-            case 3:
-                createError("Error modifying part", "Inventory has to be between min and max.");
-                break;
-            case 4:
-                createError("Name is empty", "Name can not be empty.");
-                break;
-        }
     }
 
     public void getProduct(Product product) {
