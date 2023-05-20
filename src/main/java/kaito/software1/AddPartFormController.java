@@ -69,10 +69,10 @@ public class AddPartFormController implements Initializable {
         }
     }
 
-    private void returnToMain(ActionEvent actionEvent) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("main-form.fxml"));
-        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+    public static void returnToMain(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(AddPartFormController.class.getResource("main-form.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }

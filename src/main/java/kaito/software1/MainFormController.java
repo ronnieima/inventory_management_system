@@ -96,6 +96,13 @@ public class MainFormController implements Initializable {
 
     }
 
+    private void popupNoSelectionError() {
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("Nothing selected");
+        error.setContentText("You have not selected anything.");
+        error.showAndWait();
+    }
+
     private void switchScene(String fxmlFile, ActionEvent actionEvent) throws IOException {
         root = FXMLLoader.load(getClass().getResource(fxmlFile));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -113,16 +120,23 @@ public class MainFormController implements Initializable {
     }
 
     public void modifyPart(ActionEvent actionEvent) throws IOException {
-        Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
+        try {
+            Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-part-form.fxml"));
-        root = loader.load();
-        ModifyPartFormController controller = loader.getController();
-        controller.getPart(selectedPart);
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-part-form.fxml"));
+            root = loader.load();
+            ModifyPartFormController controller = loader.getController();
+            controller.getPart(selectedPart);
+            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch(NullPointerException e) {
+            popupNoSelectionError();
+        }
+
+
     }
 
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
@@ -130,9 +144,9 @@ public class MainFormController implements Initializable {
     }
 
     public void deletePart(ActionEvent actionEvent) throws IOException {
-        Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
+        try {
+            Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
 
-        if (selectedPart != null) {
             // Creates an alert confirmation whenever user wants to delete a part
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Deletion Confirmation");
@@ -142,12 +156,16 @@ public class MainFormController implements Initializable {
                 Main.partList.remove(selectedPart);
             }
         }
+        catch (NullPointerException e) {
+            popupNoSelectionError();
+        }
     }
 
     public void deleteProduct(ActionEvent actionEvent) {
-        Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
+        try {
+            Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
 
-        if (selectedProduct != null) {
+
             // Creates an alert confirmation whenever user wants to delete a product
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Deletion Confirmation");
@@ -157,8 +175,11 @@ public class MainFormController implements Initializable {
                 Main.productList.remove(selectedProduct);
             }
         }
+        catch (NullPointerException e) {
+            popupNoSelectionError();
+        }
     }
-    //test
+
     public void exit() {
         System.out.println("Successfully logged out!");
         Platform.exit();

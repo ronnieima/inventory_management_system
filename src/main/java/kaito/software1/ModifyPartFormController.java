@@ -5,8 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static kaito.software1.AddPartFormController.returnToMain;
 
 public class ModifyPartFormController implements Initializable {
 
@@ -33,6 +36,7 @@ public class ModifyPartFormController implements Initializable {
     }
 
     public void getPart(Part part) {
+        this.part = part;
         if (part.getClass().getSimpleName().equals("InHouse")) {
             inhouseButton.setSelected(true);
             InHouse inHouse = (InHouse) part;
@@ -65,6 +69,21 @@ public class ModifyPartFormController implements Initializable {
         changingLabel.setText("Company Name");
     }
 
-    public void cancel(ActionEvent actionEvent) {
+    public void cancel(ActionEvent actionEvent) throws IOException {
+        AddPartFormController.returnToMain(actionEvent);
+    }
+
+    public void saveModify(ActionEvent actionEvent) throws IOException {
+        if (inhouseButton.isSelected()) {
+            InHouse modifiedPart = (InHouse) part;
+            modifiedPart.setId(Integer.parseInt(idText.getText()));
+            modifiedPart.setName(nameText.getText());
+            modifiedPart.setPrice(Double.parseDouble(priceText.getText()));
+            modifiedPart.setMax(Integer.parseInt(maxText.getText()));
+            modifiedPart.setMin(Integer.parseInt(minText.getText()));
+            modifiedPart.setMachineId(Integer.parseInt(changingText.getText()));
+        }
+
+        returnToMain(actionEvent);
     }
 }
