@@ -94,6 +94,5 @@ public class ModifyPartFormController implements Initializable {
         } catch (Exception e) {
             Inventory.popupError(1);
         }
-
     }
 }
