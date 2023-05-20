@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kaito.software1.AddPartFormController">
+<AnchorPane prefHeight="800.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kaito.software1.ModifyPartFormController">
     <children>
         <Label layoutX="42.0" layoutY="46.0" prefHeight="71.0" prefWidth="175.0" text="Modify Part">
             <font>
                 <Font name="Arial Black" size="26.0" />
             </font>
         </Label>
-        <RadioButton fx:id="inhouseButton" layoutX="245.0" layoutY="62.0" mnemonicParsing="false" onAction="#switchToInHouse" prefHeight="40.0" prefWidth="131.0" selected="true" text="In-House">
+        <RadioButton fx:id="inhouseButton" layoutX="245.0" layoutY="62.0" mnemonicParsing="false" onAction="#switchToInHouse" prefHeight="40.0" prefWidth="131.0" text="In-House">
             <font>
                 <Font name="Arial Rounded MT Bold" size="15.0" />
             </font>
@@ -28,7 +28,7 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="idText" editable="false" layoutX="201.0" layoutY="158.0" promptText="ID PLACEHOLDER" />
+        <TextField fx:id="idText" disable="true" editable="false" layoutX="201.0" layoutY="158.0" />
         <TextField fx:id="nameText" layoutX="201.0" layoutY="209.0" />
         <TextField fx:id="stockText" layoutX="201.0" layoutY="262.0" />
         <TextField fx:id="priceText" layoutX="201.0" layoutY="319.0" />

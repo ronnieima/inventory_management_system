@@ -105,10 +105,7 @@ public class MainFormController implements Initializable {
     }
 
     public void addPart(ActionEvent actionEvent) throws IOException {
-        Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
-        ModifyPartFormController controller = new ModifyPartFormController();
         switchScene("add-part-form.fxml", actionEvent);
-        controller.getPart(selectedPart);
     }
 
     public void addProduct(ActionEvent actionEvent) throws IOException {
@@ -116,7 +113,16 @@ public class MainFormController implements Initializable {
     }
 
     public void modifyPart(ActionEvent actionEvent) throws IOException {
-        switchScene("modify-part-form.fxml", actionEvent);
+        Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("modify-part-form.fxml"));
+        root = loader.load();
+        ModifyPartFormController controller = loader.getController();
+        controller.getPart(selectedPart);
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void modifyProduct(ActionEvent actionEvent) throws IOException {

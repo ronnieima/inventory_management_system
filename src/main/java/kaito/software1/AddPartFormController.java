@@ -36,6 +36,7 @@ public class AddPartFormController implements Initializable {
     public Label stockLabel;
     public ToggleGroup modifyPart;
     public Button saveButtonModify;
+    public TextField idTextMod;
     private Stage stage;
     private Scene scene;
     private Parent root;
