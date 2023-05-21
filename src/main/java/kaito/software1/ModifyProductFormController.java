@@ -86,6 +86,7 @@ public class ModifyProductFormController implements Initializable {
         if (associatedTable.getSelectionModel().isEmpty() == false) {
             if (alert.showAndWait().get() == ButtonType.OK) {
                 associatedPartsList.remove(selectedPart);
+                associatedTable.setItems(associatedPartsList);
             }
         }
     }

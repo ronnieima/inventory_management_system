@@ -95,6 +95,7 @@ public class AddProductFormController implements Initializable {
         if (associatedTable.getSelectionModel().isEmpty() == false) {
             if (alert.showAndWait().get() == ButtonType.OK) {
                 associatedPartsList.remove(selectedPart);
+                associatedTable.setItems(associatedPartsList);
             }
         }
     }
@@ -110,6 +111,9 @@ public class AddProductFormController implements Initializable {
 
             if (Inventory.checkStock(stock, min, max) && Inventory.checkMinMax(min, max) && Inventory.checkName(name)) {
                 newProduct = new Product(id, name, stock, price, max, min);
+                for (Part p : associatedPartsList) {
+                    newProduct.addAssociatedPart(p);
+                }
                 Inventory.addProduct(newProduct);
                 Inventory.returnToMain(actionEvent);
             }

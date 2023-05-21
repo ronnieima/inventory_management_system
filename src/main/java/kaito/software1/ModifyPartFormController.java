@@ -52,10 +52,10 @@ public class ModifyPartFormController implements Initializable {
             changingText.setText(((Outsourced)part).getCompanyName());
         }
     }
-    public void switchToInHouse(ActionEvent actionEvent) {
+    public void switchToInHouse() {
         changingLabel.setText("Machine ID");
     }
-    public void switchToOutsourced(ActionEvent actionEvent) {
+    public void switchToOutsourced() {
         changingLabel.setText("Company Name");
     }
 
