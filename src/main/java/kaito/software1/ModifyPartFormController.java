@@ -74,7 +74,7 @@ public class ModifyPartFormController implements Initializable {
             int machineId;
             String companyName;
 
-            if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max)) {
+            if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max) && Inventory.checkName(name)) {
                 if (inhouseButton.isSelected()) {
                     try {
                         machineId = Integer.parseInt(changingText.getText());

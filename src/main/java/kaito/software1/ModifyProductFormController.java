@@ -106,7 +106,7 @@ public class ModifyProductFormController implements Initializable {
             if (name.isEmpty()) {
                 Inventory.popupError(4);
             } else {
-                if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max)) {
+                if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max) && Inventory.checkName(name)) {
                     Product modifiedProduct = new Product(id, name, stock, price, max, min);
                     for (Part p : associatedPartsList) {
                         modifiedProduct.addAssociatedPart(p);

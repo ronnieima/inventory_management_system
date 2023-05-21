@@ -108,7 +108,7 @@ public class AddProductFormController implements Initializable {
             int max = Integer.parseInt(maxText.getText());
             int min = Integer.parseInt(minText.getText());
 
-            if (Inventory.checkStock(stock, min, max) && Inventory.checkMinMax(min, max)) {
+            if (Inventory.checkStock(stock, min, max) && Inventory.checkMinMax(min, max) && Inventory.checkName(name)) {
                 newProduct = new Product(id, name, stock, price, max, min);
                 Inventory.addProduct(newProduct);
                 Inventory.returnToMain(actionEvent);

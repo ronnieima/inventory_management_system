@@ -20,7 +20,7 @@ public class Inventory extends Application{
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
     // Global counter for generating the IDs.
-    private static int partIdCounter = 1;
+    private static int partIdCounter = 6; // This counter starts at 6 because I am not allowed to edit Part.java constructor to increment this variable.
     private static int productIdCounter = 1;
 
     /**
@@ -265,7 +265,7 @@ public class Inventory extends Application{
      * Displays an error message based on which error has occurred.
      * @param alert The case label for the switch statement.
      */
-    static void popupError(int alert) {
+    public static void popupError(int alert) {
         switch (alert) {
             case 1:
                 createError("Form contains blank values or invalid characters.");
@@ -279,6 +279,9 @@ public class Inventory extends Application{
             case 4:
                 createError("Inventory has to be between min and max.");
                 break;
+            case 5:
+                createError("Name field is empty.");
+                break;
         }
     }
 
@@ -288,7 +291,7 @@ public class Inventory extends Application{
      * @param max Maximum value.
      * @return True if values pass the check. False if values fail.
      */
-    static boolean checkMinMax(int min, int max) {
+    public static boolean checkMinMax(int min, int max) {
         if(max <= min || min < 0) {
             popupError(3);
             return false;
@@ -303,9 +306,22 @@ public class Inventory extends Application{
      * @param max Maximum value.
      * @return True if stock passes the check. False if stock is not between min and max.
      */
-    static boolean checkStock(int stock, int min, int max) {
+    public static boolean checkStock(int stock, int min, int max) {
         if (stock < min || stock > max) {
             popupError(4);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the name field is not empty.
+     * @param name Name value.
+     * @return True if name text field is not empty. False if text field is empty.
+     */
+    public static boolean checkName(String name) {
+        if (name.isEmpty()) {
+            popupError(5);
             return false;
         }
         return true;
