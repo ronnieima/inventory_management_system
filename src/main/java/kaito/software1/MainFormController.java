@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller class for the main view of the program.
+ * FUTURE ENHANCEMENT: I can improve the code in modifyProduct/Part by writing it into one helper method to reduce the amount of repeated code.
  */
 public class MainFormController implements Initializable {
     @FXML
@@ -231,7 +232,8 @@ public class MainFormController implements Initializable {
     }
 
     /**
-     * Prompts a confirmation window and exits the program if user clicks OK.
+     * Prompts a confirmation window and exits the program if user clicks OK.]
+     * LOGICAL ERROR: The confirmation popped up twice everytime I clicked exit. This was because I had an extra "alert.showAndWait()" before the if statement. I deleted it, and it now pops up only once.
      */
     public void exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

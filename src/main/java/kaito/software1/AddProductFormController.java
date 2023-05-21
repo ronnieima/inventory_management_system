@@ -6,16 +6,17 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the add product form of the program.
+ * FUTURE ENHANCEMENT: I can check if each individual field is empty when the user clicks save. Each field would have their own respective error message.
+ */
 public class AddProductFormController implements Initializable {
     public TableView<Part> availablePartsTable;
     public TextField searchPart;
@@ -33,12 +34,14 @@ public class AddProductFormController implements Initializable {
     public TableColumn assoPartNameCol;
     public TableColumn assoPartPriceCol;
     public TableColumn assoPartStockCol;
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
     private Product newProduct;
     private ObservableList<Part> associatedPartsList = FXCollections.observableArrayList();
 
+    /**
+     * Initializes the TableViews and search methods
+     * @param url Always included with class.
+     * @param resourceBundle Always included with class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -61,8 +64,7 @@ public class AddProductFormController implements Initializable {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                // Searches the's part ID by turning it into a string and comparing it with the existing parts in the
-                // list
+                // Searches the's part ID by turning it into a string and comparing it with the existing parts in the list
                 if (Integer.toString(part.getId()).toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 } else if (part.getName().toLowerCase().contains(lowerCaseFilter)) {
@@ -76,23 +78,36 @@ public class AddProductFormController implements Initializable {
         availablePartsTable.setItems(sortedParts);
     }
 
+    /**
+     * Returns to main view.
+     * @param actionEvent Occurs when cancel is clicked.
+     * @throws IOException IOException from FXMLLoader.
+     */
     public void cancel(ActionEvent actionEvent) throws IOException {
         Inventory.returnToMain(actionEvent);
     }
 
-    public void addAssociatedPart(ActionEvent actionEvent) throws IOException {
+    /**
+     * Add selected associated part to the product and table.
+     * @throws IOException IOException from FXMLLoader.
+     */
+    public void addAssociatedPart() throws IOException {
         Part selectedPart = availablePartsTable.getSelectionModel().getSelectedItem();
         associatedPartsList.add(selectedPart);
         associatedTable.setItems(associatedPartsList);
     }
 
-    public void removeAssociatedPart(ActionEvent actionEvent) {
+    /**
+     * Remove selected associated part from the product and table.
+     * LOGIC ERROR: After deleting the item, it did not remove itself from the table. I added associatedTable.setItems(associatedPartsList); to update the table after deletion.
+     */
+    public void removeAssociatedPart() {
         Part selectedPart = associatedTable.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Disassociate Confirmation");
         alert.setHeaderText(null);
         alert.setContentText("Are you sure you want to disassociate this part?");
-        if (associatedTable.getSelectionModel().isEmpty() == false) {
+        if (!associatedTable.getSelectionModel().isEmpty()) {
             if (alert.showAndWait().get() == ButtonType.OK) {
                 associatedPartsList.remove(selectedPart);
                 associatedTable.setItems(associatedPartsList);
@@ -100,7 +115,11 @@ public class AddProductFormController implements Initializable {
         }
     }
 
-    public void pressSaveButton(ActionEvent actionEvent) throws IOException {
+    /**
+     * Saves product information and adds it to the list of products. It also conducts input validation.
+     * @param actionEvent Occurs when save is clicked.
+     */
+    public void pressSaveButton(ActionEvent actionEvent) {
         try{
             int id = Inventory.getProductIdCounter();
             String name = nameText.getText();

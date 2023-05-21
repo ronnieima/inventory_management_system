@@ -14,6 +14,7 @@ import java.io.IOException;
 
 /**
  *  Contains all the static methods used throughout the program.
+ *  FUTURE ENHANCEMENT: I could consolidate all the input validation functions into one static method to implement to all the controllers that require input validation.
  */
 public class Inventory extends Application{
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
@@ -264,6 +265,7 @@ public class Inventory extends Application{
     /**
      * Displays an error message based on which error has occurred.
      * @param alert The case label for the switch statement.
+     * LOGICAL ERROR: I added break statements to each case label to avoid multiple popups occurring at once.
      */
     public static void popupError(int alert) {
         switch (alert) {
