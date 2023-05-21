@@ -3,8 +3,8 @@ package kaito.software1; /**
  */
 
 /**
- *
- * @author Place Your Name Here
+ * Model class for a part. An abstract class that is the parent class of the outsourced and inhouse classes.
+ * @author Ronnie Kaito Imagawa
  */
 public abstract class Part {
     private int id;
@@ -23,6 +23,7 @@ public abstract class Part {
     }
 
     /**
+     * Getter for ID attribute.
      * @return the id
      */
     public int getId() {
@@ -30,13 +31,14 @@ public abstract class Part {
     }
 
     /**
+     * Setter for ID attribute.
      * @param id the id to set
      */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
+    /** Getter for name attribute.
      * @return the name
      */
     public String getName() {
@@ -44,62 +46,63 @@ public abstract class Part {
     }
 
     /**
+     * Setter for name attribute.
      * @param name the name to set
      */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
+    /** Getter for price attribute.
      * @return the price
      */
     public double getPrice() {
         return price;
     }
 
-    /**
+    /** Setter for price attribute.
      * @param price the price to set
      */
     public void setPrice(double price) {
         this.price = price;
     }
 
-    /**
+    /** Getter for stock attribute.
      * @return the stock
      */
     public int getStock() {
         return stock;
     }
 
-    /**
+    /** Setter for stock attribute.
      * @param stock the stock to set
      */
     public void setStock(int stock) {
         this.stock = stock;
     }
 
-    /**
+    /** Getter for min attribute.
      * @return the min
      */
     public int getMin() {
         return min;
     }
 
-    /**
+    /** Setter for min attribute.
      * @param min the min to set
      */
     public void setMin(int min) {
         this.min = min;
     }
 
-    /**
+    /** Getter for max attribute.
      * @return the max
      */
     public int getMax() {
         return max;
     }
 
-    /**
+    /** Setter for max attribute.
      * @param max the max to set
      */
     public void setMax(int max) {
