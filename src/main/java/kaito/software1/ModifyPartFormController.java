@@ -79,6 +79,8 @@ public class ModifyPartFormController {
     /**
      * Saves modified part information and updates it to the list of parts. It also conducts input validation.
      * @param actionEvent Occurs when save is clicked.
+     * RUNTIME ERROR: I had errors when I tried to type cast an InHouse object to an Outsourced object and vice-versa when saving. I realized that was not necessary.
+     *                    I fixed it by using .isSelected() to determine the type first then create a new object to replace the object that got modified.
      */
     public void saveModify(ActionEvent actionEvent) {
         try {
