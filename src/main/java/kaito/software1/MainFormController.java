@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the main view of the program.
+ */
 public class MainFormController implements Initializable {
     @FXML
     private TextField searchPart;
@@ -36,9 +39,13 @@ public class MainFormController implements Initializable {
     public TableColumn productInv;
     public TableColumn productPrice;
 
+    /**
+     * Initializes the TableViews and search methods
+     * @param url Always included with class.
+     * @param resourceBundle Always included with class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         productId.setCellValueFactory(new PropertyValueFactory<>("id"));
         productName.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -92,9 +99,11 @@ public class MainFormController implements Initializable {
         SortedList<Product> sortedProducts = new SortedList<>(filteredProducts);
         sortedProducts.comparatorProperty().bind(productsTable.comparatorProperty());
         productsTable.setItems(sortedProducts);
-
     }
 
+    /**
+     * Creates an error when user has not selected anything.
+     */
     private void popupNoSelectionError() {
         Alert error = new Alert(Alert.AlertType.ERROR);
         error.setTitle("Nothing Selected");
@@ -103,6 +112,12 @@ public class MainFormController implements Initializable {
         error.showAndWait();
     }
 
+    /**
+     *  Helper method which takes an FXML file to switch scenes to.
+     * @param fxmlFile Name of file to switch to.
+     * @param actionEvent Occurs when button is clicked.
+     * @throws IOException IOException from FXMLLoader.
+     */
     private void switchScene(String fxmlFile, ActionEvent actionEvent) throws IOException {
         root = FXMLLoader.load(getClass().getResource(fxmlFile));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -111,14 +126,29 @@ public class MainFormController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Switches scene to the add part form.
+     * @param actionEvent Occurs when add button is clicked under part table.
+     * @throws IOException IOException from FXMLLoader.
+     */
     public void addPart(ActionEvent actionEvent) throws IOException {
         switchScene("add-part-form.fxml", actionEvent);
     }
 
+    /**
+     * Switches scene to the add product form.
+     * @param actionEvent Occurs when add button is clicked under product table.
+     * @throws IOException IOException from FXMLLoader.
+     */
     public void addProduct(ActionEvent actionEvent) throws IOException {
         switchScene("add-product-form.fxml", actionEvent);
     }
 
+    /**
+     * Switches scene to the modify part form.
+     * @param actionEvent Occurs when modify button is clicked under part table.
+     * @throws IOException IOException from FXMLLoader.
+     */
     public void modifyPart(ActionEvent actionEvent) throws IOException {
         try {
             Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
@@ -137,7 +167,11 @@ public class MainFormController implements Initializable {
         }
     }
 
-    public void modifyProduct(ActionEvent actionEvent) throws IOException {
+    /**
+     * Switches scene to the modify product form.
+     * @param actionEvent Occurs when modify button is clicked under product table.
+     */
+    public void modifyProduct(ActionEvent actionEvent) {
         try {
             Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
 
@@ -155,7 +189,10 @@ public class MainFormController implements Initializable {
         }
     }
 
-    public void deletePart(ActionEvent actionEvent) throws IOException {
+    /**
+     * Deletes a selected part in the part table.
+     */
+    public void deletePart() {
         try {
             Part selectedPart = partsTable.getSelectionModel().getSelectedItem();
 
@@ -173,7 +210,10 @@ public class MainFormController implements Initializable {
         }
     }
 
-    public void deleteProduct(ActionEvent actionEvent) {
+    /**
+     * Deletes a selected product in the product table.
+     */
+    public void deleteProduct() {
         try {
             Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
             // Creates an alert confirmation whenever user wants to delete a product
@@ -190,6 +230,9 @@ public class MainFormController implements Initializable {
         }
     }
 
+    /**
+     * Prompts a confirmation window and exits the program if user clicks OK.
+     */
     public void exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit Confirmation");
