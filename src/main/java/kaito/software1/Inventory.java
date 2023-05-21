@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
+ * JAVADOCS FOLDER IS INCLUDED IN Software1/javadocs/
+ *
  *  Contains all the static methods used throughout the program.
  *  FUTURE ENHANCEMENT: I could consolidate all the input validation functions into one static method to implement to all the controllers that require input validation.
  */
