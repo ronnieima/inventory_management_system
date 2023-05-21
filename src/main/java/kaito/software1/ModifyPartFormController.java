@@ -3,11 +3,10 @@ package kaito.software1;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import java.io.IOException;
 
 /**
- * Controller class for the modify product form of the program.
+ * Controller class for the modify part form of the program.
  * FUTURE ENHANCEMENT: I can create a generic method to handle the difference between InHouse and Outsourced objects to reduce repeated code.
  */
 public class ModifyPartFormController {
