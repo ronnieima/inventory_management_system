@@ -8,11 +8,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the modify product form of the program.
+ * FUTURE ENHANCEMENT: I can make the add/removeAssociatedPart methods static in the Inventory class, so I can use it
+ *                      in this class and AddProductFormController to reduce repetitive code.
+ */
 public class ModifyProductFormController implements Initializable {
     public TextField searchPart;
     public TableView<Part> availablePartsTable;
@@ -34,6 +38,11 @@ public class ModifyProductFormController implements Initializable {
     private ObservableList<Part> associatedPartsList = FXCollections.observableArrayList();
     private Product product;
 
+    /**
+     * Initializes the TableViews and search methods
+     * @param url Always included with class.
+     * @param resourceBundle Always included with class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -71,13 +80,19 @@ public class ModifyProductFormController implements Initializable {
         availablePartsTable.setItems(sortedParts);
     }
 
-    public void addAssociatedPart(ActionEvent actionEvent) {
+    /**
+     * Add selected associated part to the product and table.
+     */
+    public void addAssociatedPart() {
         Part selectedPart = availablePartsTable.getSelectionModel().getSelectedItem();
         associatedPartsList.add(selectedPart);
         associatedTable.setItems(associatedPartsList);
     }
 
-    public void removeAssociatedPart(ActionEvent actionEvent) {
+    /**
+     * Remove selected associated part from the product and table.
+     */
+    public void removeAssociatedPart() {
         Part selectedPart = associatedTable.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Disassociate Confirmation");
@@ -91,10 +106,21 @@ public class ModifyProductFormController implements Initializable {
         }
     }
 
+    /**
+     * Returns to main view.
+     * @param actionEvent Occurs when cancel is clicked.
+     * @throws IOException IOException from FXMLLoader.
+     */
     public void cancel(ActionEvent actionEvent) throws IOException {
         Inventory.returnToMain(actionEvent);
     }
 
+    /**
+     * Saves product information and adds it to the list of products. It also conducts input validation.
+     * @param actionEvent Occurs when save is clicked.
+     *  LOGIC ERROR: I discovered that the product would save whenever I left the name text field empty.
+     *                    I implemented a new pop-up error that is detected using name.isEmpty() and applied it to all other forms.
+     */
     public void pressSaveButton(ActionEvent actionEvent) {
         try {
             int id = Integer.parseInt(idText.getText());
@@ -122,6 +148,10 @@ public class ModifyProductFormController implements Initializable {
 
     }
 
+    /**
+     * Gets selected product information from the main form to populate the text fields.
+     * @param product Selected product from the main view.
+     */
     public void getProduct(Product product) {
         this.product = product;
         idText.setText(String.valueOf(product.getId()));
