@@ -10,15 +10,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
+/**
+ *  Contains all the static methods used throughout the program.
+ */
 public class Inventory extends Application{
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
+
+    // Global counter for generating the IDs.
     private static int partIdCounter = 1;
     private static int productIdCounter = 1;
 
+    /**
+     * Loads the main form on startup. It creates the window for the main program.
+     * @param stage The stage in which the scene is put on.
+     * @throws IOException IOException from FXMLLoader.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Inventory.class.getResource("main-form.fxml"));
@@ -28,12 +37,16 @@ public class Inventory extends Application{
         stage.show();
     }
 
+    /**
+     * Creates sample data and launches the program. This method is called from the start.
+     * @param args This parameter is included in every main method.
+     */
     public static void main(String[] args) {
-        Product product1 = new Product(1, "Mountain Bike", 10, 499.99, 3, 2);
+        Product product1 = new Product(1, "Mountain Bike", 3, 499.99, 3, 2);
         Product product2 = new Product(2, "Road Bike", 5, 799.99, 6, 2);
         Product product3 = new Product(3, "Hybrid Bike", 20, 349.99, 100, 4);
-        Product product4 = new Product(4, "Electric Bike", 15, 1299.99, 3, 1);
-        Product product5 = new Product(5, "Kids Bike", 8, 199.99, 4, 1);
+        Product product4 = new Product(4, "Electric Bike", 2, 1299.99, 3, 1);
+        Product product5 = new Product(5, "Kids Bike", 1, 199.99, 4, 1);
 
         Inventory.getAllProducts().add(product1);
         Inventory.getAllProducts().add(product2);
@@ -41,11 +54,11 @@ public class Inventory extends Application{
         Inventory.getAllProducts().add(product4);
         Inventory.getAllProducts().add(product5);
 
-        Part handlebar = new InHouse(1, "Handlebar", 30.99, 10, 3,5,112);
-        Part pedal = new Outsourced(2, "Pedal", 19.99, 16, 1, 6, "Kaitoz");
-        Part tire = new Outsourced(3, "Tire", 15.99, 2, 1,4,"TIRES!!");
-        Part saddle = new InHouse(4, "Saddle", 49.99, 20, 4,8,234);
-        Part chain = new InHouse(5, "Chain",  14.99, 50, 20,30,435);
+        Part handlebar = new InHouse(1, "Handlebar", 30.99, 3, 3,5,112);
+        Part pedal = new Outsourced(2, "Pedal", 19.99, 2, 1, 6, "Kaitoz");
+        Part tire = new Outsourced(3, "Tire", 15.99, 4, 1,4,"TIRES!!");
+        Part saddle = new InHouse(4, "Saddle", 49.99, 6, 4,8,234);
+        Part chain = new InHouse(5, "Chain",  14.99, 30, 20,30,435);
 
         Inventory.getAllParts().add(handlebar);
         Inventory.getAllParts().add(pedal);
@@ -55,13 +68,27 @@ public class Inventory extends Application{
         launch();
     }
 
+    /**
+     * Adds a new part object to allParts. It uses the getter for the allParts ObservableList to add a new part.
+     * @param newPart The new part to be added.
+     */
     public static void addPart(Part newPart) {
         getAllParts().add(newPart);
     }
 
+    /**
+     * Adds a new product object to allProducts. It uses the getter for the allProducts ObservableList to add a new product.
+     * @param newProduct The new product to be added.
+     */
     public static void addProduct(Product newProduct) {
         getAllProducts().add(newProduct);
     }
+
+    /**
+     * Looks up a part within allParts given its ID. It uses a for loop to iterate through each part until it finds a match. Otherwise, it returns null.
+     * @param partId The part ID to look up.
+     * @return p The searched part.
+     */
     public static Part lookupPart(int partId) {
         for (Part p : getAllParts()) {
             if (p.getId() == partId) {
@@ -71,6 +98,11 @@ public class Inventory extends Application{
         return null;
     }
 
+    /**
+     * Looks up a part within allProd given its ID. It uses a for loop to iterate through each product until it finds a match. Otherwise, it returns null.
+     * @param productId The product ID to look up.
+     * @return The searched product.
+     */
     public static Product lookupProduct(int productId) {
         for (Product p : getAllProducts()) {
             if (p.getId() == productId) {
@@ -79,7 +111,12 @@ public class Inventory extends Application{
         }
         return null;
     }
-    //searches the lsit of parts by name
+
+    /**
+     * Searches a list of parts by its name. It uses a for loop to iterate through each part until it finds a match and adds it to the list.
+     * @param partName The part name.
+     * @return The list of parts that are found.
+     */
     public static ObservableList<Part> lookupPart(String partName) {
         ObservableList<Part> parts = FXCollections.observableArrayList();
 
@@ -91,6 +128,11 @@ public class Inventory extends Application{
         return parts;
     }
 
+    /**
+     * Searches a list of products by its name. It uses a for loop to iterate through each product until it finds a match and adds it to the list.
+     * @param productName The product name.
+     * @return The list of product that are found.
+     */
     public static ObservableList<Product> lookupProduct(String productName) {
         ObservableList<Product> products = FXCollections.observableArrayList();
 
@@ -102,14 +144,29 @@ public class Inventory extends Application{
         return products;
     }
 
+    /**
+     * Replaces a part in a given index within the list of parts with a given part.
+     * @param index The index of the part to be replaced.
+     * @param selectedPart The new part to add.
+     */
     public static void updatePart(int index, Part selectedPart) {
         getAllParts().set(index, selectedPart);
     }
 
+    /**
+     * Replaces a product in a given index within the list of products with a given product.
+     * @param index The index of the product to be replaced.
+     * @param selectedProduct The new product to add.
+     */
     public static void updateProduct(int index, Product selectedProduct) {
         getAllProducts().set(index, selectedProduct);
     }
 
+    /**
+     * Deletes a part from the parts list.
+     * @param selectedPart Part to delete.
+     * @return True if the part has been successfully removed. False if removal has failed.
+     */
     public static boolean deletePart(Part selectedPart) {
         if (getAllParts().contains(selectedPart)) {
             getAllParts().remove(selectedPart);
@@ -118,6 +175,11 @@ public class Inventory extends Application{
         return false;
     }
 
+    /**
+     * Deletes a product from the products list.
+     * @param selectedProduct Product to delete.
+     * @return True if the product has been successfully removed. False if removal has failed.
+     */
     public static boolean deleteProduct(Product selectedProduct) {
         if (getAllProducts().contains(selectedProduct)) {
             getAllProducts().remove(selectedProduct);
@@ -126,30 +188,59 @@ public class Inventory extends Application{
         return false;
     }
 
+    /**
+     * Getter method for the parts list.
+     * @return The list of all the parts.
+     */
     public static ObservableList<Part> getAllParts() {
         return allParts;
     }
 
+    /**
+     * Getter method for the products list.
+     * @return The list of all the products.
+     */
     public static ObservableList<Product> getAllProducts() {
         return allProducts;
     }
 
+    /**
+     * Getter method for the part ID counter.
+     * @return The current counter to be used when generating a new part ID.
+     */
     public static int getPartIdCounter() {
         return partIdCounter;
     }
 
+    /**
+     * Setter method for the part ID counter.
+     * @param partIdCounter The new part ID.
+     */
     public static void setPartIdCounter(int partIdCounter) {
         Inventory.partIdCounter = partIdCounter;
     }
 
+    /**
+     * Getter method for the product ID counter.
+     * @return The current counter to be used when generating a new product ID.
+     */
     public static int getProductIdCounter() {
         return productIdCounter;
     }
 
+    /**
+     * Setter method for the product ID counter.
+     * @param productIdCounter The new product ID.
+     */
     public static void setProductIdCounter(int productIdCounter) {
         Inventory.productIdCounter = productIdCounter;
     }
 
+    /**
+     * Returns to the main screen view.
+     * @param actionEvent Occurs when a button is clicked.
+     * @throws IOException IOException from FXMLLoader.
+     */
     public static void returnToMain(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(Inventory.class.getResource("main-form.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -158,6 +249,10 @@ public class Inventory extends Application{
         stage.show();
     }
 
+    /**
+     * Helper method that creates an error window.
+     * @param content Error message.
+     */
     private static void createError(String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -166,6 +261,10 @@ public class Inventory extends Application{
         alert.showAndWait();
     }
 
+    /**
+     * Displays an error message based on which error has occurred.
+     * @param alert The case label for the switch statement.
+     */
     static void popupError(int alert) {
         switch (alert) {
             case 1:
@@ -183,6 +282,12 @@ public class Inventory extends Application{
         }
     }
 
+    /**
+     * Checks that the minimum value does not exceed the maximum value or is 0.
+     * @param min Minimum value.
+     * @param max Maximum value.
+     * @return True if values pass the check. False if values fail.
+     */
     static boolean checkMinMax(int min, int max) {
         if(max <= min || min < 0) {
             popupError(3);
@@ -191,6 +296,13 @@ public class Inventory extends Application{
         return true;
     }
 
+    /**
+     * Checks that the stock is between the minimum and maximum values.
+     * @param stock Stock value.
+     * @param min Minimum value.
+     * @param max Maximum value.
+     * @return True if stock passes the check. False if stock is not between min and max.
+     */
     static boolean checkStock(int stock, int min, int max) {
         if (stock < min || stock > max) {
             popupError(4);
