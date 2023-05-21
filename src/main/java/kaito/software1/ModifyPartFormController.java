@@ -2,14 +2,15 @@ package kaito.software1;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ModifyPartFormController implements Initializable {
+/**
+ * Controller class for the modify product form of the program.
+ * FUTURE ENHANCEMENT: I can create a generic method to handle the difference between InHouse and Outsourced objects to reduce repeated code.
+ */
+public class ModifyPartFormController {
 
     @FXML
     public TextField priceText;
@@ -26,13 +27,12 @@ public class ModifyPartFormController implements Initializable {
     public TextField idText;
     public Label changingLabel;
     public Button saveButtonModify;
-
     private Part part;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
+    /**
+     * Gets selected part information from the main form to populate the text fields.
+     * @param part Selected part from the main form.
+     */
     public void getPart(Part part) {
         this.part = part;
         idText.setText(String.valueOf(part.getId()));
@@ -52,18 +52,35 @@ public class ModifyPartFormController implements Initializable {
             changingText.setText(((Outsourced)part).getCompanyName());
         }
     }
+
+    /**
+     * Switches label to "Machine ID" when In-House radio is selected
+     */
     public void switchToInHouse() {
         changingLabel.setText("Machine ID");
     }
+
+    /**
+     * Switches label to "Company Name" when Outsourced radio is selected
+     */
     public void switchToOutsourced() {
         changingLabel.setText("Company Name");
     }
 
+    /**
+     * Returns to the main view.
+     * @param actionEvent Occurs when cancel is clicked.
+     * @throws IOException IOException from FXMLLoader.
+     */
     public void cancel(ActionEvent actionEvent) throws IOException {
         Inventory.returnToMain(actionEvent);
     }
 
-    public void saveModify(ActionEvent actionEvent) throws IOException {
+    /**
+     * Saves modified part information and updates it to the list of parts. It also conducts input validation.
+     * @param actionEvent Occurs when save is clicked.
+     */
+    public void saveModify(ActionEvent actionEvent) {
         try {
             int id = Integer.parseInt(idText.getText());
             String name = nameText.getText();
