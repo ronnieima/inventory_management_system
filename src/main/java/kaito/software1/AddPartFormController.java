@@ -1,18 +1,15 @@
 package kaito.software1;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-
-public class AddPartFormController implements Initializable {
+/**
+ * Controller class for the add part form of the program.
+ * FUTURE ENHANCEMENT: I could add a popup box that shows if a user types into the data fields but presses exit, so they don't lose
+ *                      their data.
+ */
+public class AddPartFormController {
     public RadioButton inhouseButton;
     public RadioButton outsourcedButton;
     public TextField idText;
@@ -31,33 +28,38 @@ public class AddPartFormController implements Initializable {
     public TextField nameText;
     public TextField stockText;
     public Label stockLabel;
-    public ToggleGroup modifyPart;
-    public Button saveButtonModify;
-    public TextField idTextMod;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
-
+    /**
+     * Returns to main view.
+     * @param actionEvent Occurs when cancel is clicked.
+     * @throws IOException IOException from FXMLLoader.
+     */
     public void cancel(ActionEvent actionEvent) throws IOException {
         Inventory.returnToMain(actionEvent);
     }
 
-    public void switchToInHouse(ActionEvent actionEvent) {
+    /**
+     * Switches label to "Machine ID" when In-House radio is selected
+     */
+    public void switchToInHouse() {
         changingLabel.setText("Machine ID");
     }
-    public void switchToOutsourced(ActionEvent actionEvent) {
+
+    /**
+     * Switches label to "Company Name" when Outsourced radio is selected
+     */
+    public void switchToOutsourced() {
         changingLabel.setText("Company Name");
     }
 
-
-    public void saveData(ActionEvent actionEvent) throws IOException {
+    /**
+     * Saves part information and adds it to the list of parts. It also conducts input validation.
+     * @param actionEvent Occurs when save is clicked.
+     * RUNTIME ERROR: I had an error whenever I input a string instead of an int for the machine ID.
+     *                    To fix this, I added a try catch statement to catch this exception and pop up
+     *                    an error box.
+     */
+    public void saveData(ActionEvent actionEvent) {
         try {
             int id = Inventory.getPartIdCounter();
             String name = nameText.getText();
