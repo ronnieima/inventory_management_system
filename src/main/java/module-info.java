@@ -5,4 +5,5 @@ module kaito.software1 {
 
     opens kaito.software1 to javafx.fxml;
     exports kaito.software1;
+
 }

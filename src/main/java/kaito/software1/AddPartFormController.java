@@ -2,6 +2,11 @@ package kaito.software1;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import kaito.software1.InHouse;
+import kaito.software1.Main;
+import kaito.software1.Outsourced;
+import kaito.software1.Part;
+
 import java.io.IOException;
 
 /**

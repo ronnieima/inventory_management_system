@@ -8,6 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import kaito.software1.Main;
+import kaito.software1.Part;
+import kaito.software1.Product;
 
 import java.io.IOException;
 import java.net.URL;

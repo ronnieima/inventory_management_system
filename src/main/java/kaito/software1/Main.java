@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class Main extends Application{
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
     // Global counter for generating the IDs.
-    private static int partIdCounter = 6; // This counter starts at 6 because I am not allowed to edit Part.java constructor to increment this variable.
+    private static int partIdCounter = 1; // This counter starts at 6 because I am not allowed to edit Part.java constructor to increment this variable.
     private static int productIdCounter = 1;
 
     /**
@@ -35,7 +36,8 @@ public class Main extends Application{
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-form.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1079, 476);
-        stage.setTitle("Inventory Management System | Ronnie Kaito Imagawa");
+        stage.setTitle("Hornet Sports - Inventory Management System");
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("bikeIcon.png")));
         stage.setScene(scene);
         stage.show();
     }
