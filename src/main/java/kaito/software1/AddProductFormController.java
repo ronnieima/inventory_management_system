@@ -48,7 +48,7 @@ public class AddProductFormController implements Initializable {
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        availablePartsTable.setItems(Inventory.getAllParts());
+        availablePartsTable.setItems(Main.getAllParts());
 
         assoPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         assoPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -57,7 +57,7 @@ public class AddProductFormController implements Initializable {
         associatedTable.setItems(associatedPartsList);
 
         // Search
-        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.getAllParts(), p -> true);
+        FilteredList<Part> filteredParts = new FilteredList<>(Main.getAllParts(), p -> true);
         searchPart.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -84,7 +84,7 @@ public class AddProductFormController implements Initializable {
      * @throws IOException IOException from FXMLLoader.
      */
     public void cancel(ActionEvent actionEvent) throws IOException {
-        Inventory.returnToMain(actionEvent);
+        Main.returnToMain(actionEvent);
     }
 
     /**
@@ -121,23 +121,23 @@ public class AddProductFormController implements Initializable {
      */
     public void pressSaveButton(ActionEvent actionEvent) {
         try{
-            int id = Inventory.getProductIdCounter();
+            int id = Main.getProductIdCounter();
             String name = nameText.getText();
             int stock = Integer.parseInt(stockText.getText());
             double price = Double.parseDouble(priceText.getText());
             int max = Integer.parseInt(maxText.getText());
             int min = Integer.parseInt(minText.getText());
 
-            if (Inventory.checkStock(stock, min, max) && Inventory.checkMinMax(min, max) && Inventory.checkName(name)) {
+            if (Main.checkStock(stock, min, max) && Main.checkMinMax(min, max) && Main.checkName(name)) {
                 newProduct = new Product(id, name, stock, price, max, min);
                 for (Part p : associatedPartsList) {
                     newProduct.addAssociatedPart(p);
                 }
-                Inventory.addProduct(newProduct);
-                Inventory.returnToMain(actionEvent);
+                Main.addProduct(newProduct);
+                Main.returnToMain(actionEvent);
             }
         } catch (Exception e) {
-            Inventory.popupError(1);
+            Main.popupError(1);
         }
     }
 }

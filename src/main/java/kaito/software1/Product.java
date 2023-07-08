@@ -35,7 +35,7 @@ public class  Product {
         this.stock = stock;
         this.max = max;
         this.min = min;
-        Inventory.setProductIdCounter(Inventory.getProductIdCounter() + 1);
+        Main.setProductIdCounter(Main.getProductIdCounter() + 1);
     }
 
     /**

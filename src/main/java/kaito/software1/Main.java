@@ -18,7 +18,7 @@ import java.io.IOException;
  *  Contains all the static methods used throughout the program.
  *  FUTURE ENHANCEMENT: I could consolidate all the input validation functions into one static method to implement to all the controllers that require input validation.
  */
-public class Inventory extends Application{
+public class Main extends Application{
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
@@ -33,7 +33,7 @@ public class Inventory extends Application{
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Inventory.class.getResource("main-form.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-form.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1079, 476);
         stage.setTitle("Inventory Management System | Ronnie Kaito Imagawa");
         stage.setScene(scene);
@@ -45,29 +45,29 @@ public class Inventory extends Application{
      * @param args This parameter is included in every main method.
      */
     public static void main(String[] args) {
-        Product product1 = new Product(1, "Mountain Bike", 3, 499.99, 3, 2);
-        Product product2 = new Product(2, "Road Bike", 5, 799.99, 6, 2);
-        Product product3 = new Product(3, "Hybrid Bike", 20, 349.99, 100, 4);
-        Product product4 = new Product(4, "Electric Bike", 2, 1299.99, 3, 1);
-        Product product5 = new Product(5, "Kids Bike", 1, 199.99, 4, 1);
+        Product product1 = new Product(1, "2022 Fastroad E+ EX Pro", 3, 3450.90, 3, 2);
+        Product product2 = new Product(2, "2021 Talon 4", 5, 389.90, 6, 2);
+        Product product3 = new Product(3, "2022 XTC ADV.3 27.5\"", 20, 1469.90, 100, 4);
+        Product product4 = new Product(4, "2022 Tempt 1 29r", 2, 685.90, 3, 1);
+        Product product5 = new Product(5, "2021 Escape 3", 1, 275.90, 4, 1);
 
-        Inventory.getAllProducts().add(product1);
-        Inventory.getAllProducts().add(product2);
-        Inventory.getAllProducts().add(product3);
-        Inventory.getAllProducts().add(product4);
-        Inventory.getAllProducts().add(product5);
+        Main.getAllProducts().add(product1);
+        Main.getAllProducts().add(product2);
+        Main.getAllProducts().add(product3);
+        Main.getAllProducts().add(product4);
+        Main.getAllProducts().add(product5);
 
-        Part handlebar = new InHouse(1, "Handlebar", 30.99, 3, 3,5,112);
-        Part pedal = new Outsourced(2, "Pedal", 19.99, 2, 1, 6, "Kaitoz");
-        Part tire = new Outsourced(3, "Tire", 15.99, 4, 1,4,"TIRES!!");
-        Part saddle = new InHouse(4, "Saddle", 49.99, 6, 4,8,234);
-        Part chain = new InHouse(5, "Chain",  14.99, 30, 20,30,435);
+        Part handlebar = new InHouse(1, "Control Mini 1+ Hand Pump", 39.90, 3, 3,5,112);
+        Part pedal = new Outsourced(2, "LIV Engergize Gloves", 32.90, 2, 1, 6, "SRAM Corporation");
+        Part tire = new Outsourced(3, "Continental Ride Tour 700c", 24.69, 4, 1,4,"Bike Tires Direct");
+        Part saddle = new InHouse(4, "Fizik Vento Argo 00 Adaptive Saddle", 305.99, 6, 4,8,234);
+        Part chain = new InHouse(5, "Shimano CN-HG701 11 Speed Chain Ultegra/XT",  35.69, 30, 20,30,435);
 
-        Inventory.getAllParts().add(handlebar);
-        Inventory.getAllParts().add(pedal);
-        Inventory.getAllParts().add(tire);
-        Inventory.getAllParts().add(saddle);
-        Inventory.getAllParts().add(chain);
+        allParts.add(handlebar);
+        allParts.add(pedal);
+        allParts.add(tire);
+        allParts.add(saddle);
+        allParts.add(chain);
         launch();
     }
 
@@ -220,7 +220,7 @@ public class Inventory extends Application{
      * @param partIdCounter The new part ID.
      */
     public static void setPartIdCounter(int partIdCounter) {
-        Inventory.partIdCounter = partIdCounter;
+        Main.partIdCounter = partIdCounter;
     }
 
     /**
@@ -236,7 +236,7 @@ public class Inventory extends Application{
      * @param productIdCounter The new product ID.
      */
     public static void setProductIdCounter(int productIdCounter) {
-        Inventory.productIdCounter = productIdCounter;
+        Main.productIdCounter = productIdCounter;
     }
 
     /**
@@ -245,7 +245,7 @@ public class Inventory extends Application{
      * @throws IOException IOException from FXMLLoader.
      */
     public static void returnToMain(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(Inventory.class.getResource("main-form.fxml"));
+        Parent root = FXMLLoader.load(Main.class.getResource("main-form.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

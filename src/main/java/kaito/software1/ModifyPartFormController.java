@@ -72,7 +72,7 @@ public class ModifyPartFormController {
      * @throws IOException IOException from FXMLLoader.
      */
     public void cancel(ActionEvent actionEvent) throws IOException {
-        Inventory.returnToMain(actionEvent);
+        Main.returnToMain(actionEvent);
     }
 
     /**
@@ -92,25 +92,25 @@ public class ModifyPartFormController {
             int machineId;
             String companyName;
 
-            if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max) && Inventory.checkName(name)) {
+            if (Main.checkMinMax(min, max) && Main.checkStock(stock, min, max) && Main.checkName(name)) {
                 if (inhouseButton.isSelected()) {
                     try {
                         machineId = Integer.parseInt(changingText.getText());
                         InHouse modifiedPart = new InHouse(id, name, price,stock, min, max, machineId);
-                        Inventory.updatePart(Inventory.getAllParts().indexOf(part), modifiedPart);
-                        Inventory.returnToMain(actionEvent);
+                        Main.updatePart(Main.getAllParts().indexOf(part), modifiedPart);
+                        Main.returnToMain(actionEvent);
                     } catch (Exception e) {
-                        Inventory.popupError(2);
+                        Main.popupError(2);
                     }
                 } else {
                     companyName = changingText.getText();
                     Outsourced modifiedPart = new Outsourced(id, name, price,stock, min, max, companyName);
-                    Inventory.updatePart(Inventory.getAllParts().indexOf(part), modifiedPart);
-                    Inventory.returnToMain(actionEvent);
+                    Main.updatePart(Main.getAllParts().indexOf(part), modifiedPart);
+                    Main.returnToMain(actionEvent);
                 }
             }
         } catch (Exception e) {
-            Inventory.popupError(1);
+            Main.popupError(1);
         }
     }
 }

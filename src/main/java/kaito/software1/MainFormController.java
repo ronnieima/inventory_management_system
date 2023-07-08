@@ -51,15 +51,15 @@ public class MainFormController implements Initializable {
         productName.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        productsTable.setItems(Inventory.getAllProducts());
+        productsTable.setItems(Main.getAllProducts());
 
         partId.setCellValueFactory(new PropertyValueFactory<>("id"));
         partName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        partsTable.setItems(Inventory.getAllParts());
+        partsTable.setItems(Main.getAllParts());
 
-        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.getAllParts(), p -> true);
+        FilteredList<Part> filteredParts = new FilteredList<>(Main.getAllParts(), p -> true);
         searchPart.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -80,7 +80,7 @@ public class MainFormController implements Initializable {
         sortedParts.comparatorProperty().bind(partsTable.comparatorProperty());
         partsTable.setItems(sortedParts);
 
-        FilteredList<Product> filteredProducts = new FilteredList<>(Inventory.getAllProducts(), p -> true);
+        FilteredList<Product> filteredProducts = new FilteredList<>(Main.getAllProducts(), p -> true);
         searchProduct.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredProducts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -203,7 +203,7 @@ public class MainFormController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to delete " + selectedPart.getName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
-                Inventory.deletePart(selectedPart);
+                Main.deletePart(selectedPart);
             }
         }
         catch (NullPointerException e) {
@@ -223,7 +223,7 @@ public class MainFormController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to delete " + selectedProduct.getName() + "?");
             if (alert.showAndWait().get() == ButtonType.OK){
-                Inventory.deleteProduct(selectedProduct);
+                Main.deleteProduct(selectedProduct);
             }
         }
         catch (NullPointerException e) {

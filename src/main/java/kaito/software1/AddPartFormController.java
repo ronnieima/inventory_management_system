@@ -35,7 +35,7 @@ public class AddPartFormController {
      * @throws IOException IOException from FXMLLoader.
      */
     public void cancel(ActionEvent actionEvent) throws IOException {
-        Inventory.returnToMain(actionEvent);
+        Main.returnToMain(actionEvent);
     }
 
     /**
@@ -61,7 +61,7 @@ public class AddPartFormController {
      */
     public void saveData(ActionEvent actionEvent) {
         try {
-            int id = Inventory.getPartIdCounter();
+            int id = Main.getPartIdCounter();
             String name = nameText.getText();
             double price = Double.parseDouble(priceText.getText());
             int stock = Integer.parseInt(stockText.getText());
@@ -69,28 +69,28 @@ public class AddPartFormController {
             int max = Integer.parseInt(maxText.getText());
             int machineId;
             String companyName;
-            if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max) && Inventory.checkName(name)) {
+            if (Main.checkMinMax(min, max) && Main.checkStock(stock, min, max) && Main.checkName(name)) {
                 if (inhouseButton.isSelected()) {
                     try {
                         machineId = Integer.parseInt(changingText.getText());
                         Part part = new InHouse(id, name, price, stock, min, max, machineId);
-                        Inventory.addPart(part);
-                        Inventory.setPartIdCounter(Inventory.getPartIdCounter() + 1);
-                        Inventory.returnToMain(actionEvent);
+                        Main.addPart(part);
+                        Main.setPartIdCounter(Main.getPartIdCounter() + 1);
+                        Main.returnToMain(actionEvent);
                     } catch (Exception e) {
-                        Inventory.popupError(2);
+                        Main.popupError(2);
                     }
 
                 } else {
                     companyName = changingText.getText();
                     Part part = new Outsourced(id, name, price, stock, min, max, companyName);
-                    Inventory.addPart(part);
-                    Inventory.setPartIdCounter(Inventory.getPartIdCounter() + 1);
-                    Inventory.returnToMain(actionEvent);
+                    Main.addPart(part);
+                    Main.setPartIdCounter(Main.getPartIdCounter() + 1);
+                    Main.returnToMain(actionEvent);
                 }
             }
         } catch (Exception e) {
-            Inventory.popupError(1);
+            Main.popupError(1);
         }
     }
 

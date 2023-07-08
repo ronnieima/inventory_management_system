@@ -49,7 +49,7 @@ public class ModifyProductFormController implements Initializable {
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        availablePartsTable.setItems(Inventory.getAllParts());
+        availablePartsTable.setItems(Main.getAllParts());
 
         assoPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         assoPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -58,7 +58,7 @@ public class ModifyProductFormController implements Initializable {
         associatedTable.setItems(associatedPartsList);
 
         // Search
-        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.getAllParts(), p -> true);
+        FilteredList<Part> filteredParts = new FilteredList<>(Main.getAllParts(), p -> true);
         searchPart.textProperty().addListener((observableValue, oldValue, newValue) -> {
             filteredParts.setPredicate(part -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -112,7 +112,7 @@ public class ModifyProductFormController implements Initializable {
      * @throws IOException IOException from FXMLLoader.
      */
     public void cancel(ActionEvent actionEvent) throws IOException {
-        Inventory.returnToMain(actionEvent);
+        Main.returnToMain(actionEvent);
     }
 
     /**
@@ -131,19 +131,19 @@ public class ModifyProductFormController implements Initializable {
             int min = Integer.parseInt(minText.getText());
 
             if (name.isEmpty()) {
-                Inventory.popupError(4);
+                Main.popupError(4);
             } else {
-                if (Inventory.checkMinMax(min, max) && Inventory.checkStock(stock, min, max) && Inventory.checkName(name)) {
+                if (Main.checkMinMax(min, max) && Main.checkStock(stock, min, max) && Main.checkName(name)) {
                     Product modifiedProduct = new Product(id, name, stock, price, max, min);
                     for (Part p : associatedPartsList) {
                         modifiedProduct.addAssociatedPart(p);
                     }
-                    Inventory.updateProduct(Inventory.getAllProducts().indexOf(product), modifiedProduct);
-                    Inventory.returnToMain(actionEvent);
+                    Main.updateProduct(Main.getAllProducts().indexOf(product), modifiedProduct);
+                    Main.returnToMain(actionEvent);
                 }
             }
         } catch (Exception e) {
-            Inventory.popupError(1);
+            Main.popupError(1);
         }
 
     }
